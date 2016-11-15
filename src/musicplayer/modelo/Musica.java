@@ -1,4 +1,4 @@
-package modelo;
+package musicplayer.modelo;
 
 public class Musica {
 	private String path;

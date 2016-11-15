@@ -1,4 +1,4 @@
-package modelo;
+package musicplayer.modelo;
 
 import java.util.ArrayList;
 
@@ -42,13 +42,13 @@ public class Tree {
 	
 	/* Insere um Aluno na árvore, de acordo com as informações passadas por parâmetro
 	 */ 
-	public void insereUsuario(int id, String nome, int senha, Playlist playlist) {
-        Usuario usuario = new UsuarioNormal(id, nome, senha, playlist);
+	public void insereUsuario(int id, String nome, String senha, Playlist playlist) {
+        Usuario usuario = new UsuarioComum(id, nome, senha, playlist);
         No no = new No(usuario);
         inserir(no);
     }
 	
-	public void insereUsuario(int id, String nome, int senha, ArrayList<Playlist> playlists) {
+	public void insereUsuario(int id, String nome, String senha, ArrayList<Playlist> playlists) {
         Usuario usuario = new UsuarioVip(id, nome, senha, playlists);
         No no = new No(usuario);
         inserir(no);
@@ -171,9 +171,9 @@ public class Tree {
 			return root;
 		}
 		
-		// Se nao encontrar, retorna no vazio
+		// Se nao encontrar, retorna no nulo
 		if (leftTree == null && rightTree == null)
-			return new No(new Usuario(0,"",0));
+			return null;
 		
 		if (root.getUsuario().getId() > id) {
 			return leftTree.busca(id);

@@ -1,4 +1,4 @@
-package modelo;
+package musicplayer.modelo;
 
 import java.util.ArrayList;
 
@@ -13,11 +13,11 @@ public class BancoDeUsuarios {
 		listaDeUsuarios = new Tree();
 	}
 	
-	public void addUsuario (int id, String nome, int senha, Playlist playlist) {
+	public void addUsuario (int id, String nome, String senha, Playlist playlist) {
 		listaDeUsuarios.insereUsuario(id, nome, senha, playlist);
 	}
 	
-	public void addUsuario (int id, String nome, int senha, ArrayList<Playlist> playlists) {
+	public void addUsuario (int id, String nome, String senha, ArrayList<Playlist> playlists) {
 		listaDeUsuarios.insereUsuario(id, nome, senha, playlists);
 	}
 	

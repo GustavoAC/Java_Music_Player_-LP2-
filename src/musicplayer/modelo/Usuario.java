@@ -1,13 +1,13 @@
-package modelo;
-import java.lang.Comparable;
-import java.util.ArrayList;
+package musicplayer.modelo;
 
-public class Usuario implements Comparable<Usuario> {
+import java.lang.Comparable;
+
+public abstract class Usuario implements Comparable<Usuario> {
 	private int id;
 	private String nome;
-	private int senha;
+	private String senha;
 	
-	public Usuario(int id, String nome, int senha) {
+	public Usuario(int id, String nome, String senha) {
 		this.id = id;
 		this.nome = nome;
 		this.senha = senha;
@@ -39,12 +39,14 @@ public class Usuario implements Comparable<Usuario> {
 		this.nome = nome;
 	}
 
-	public int getSenha() {
+	public String getSenha() {
 		return senha;
 	}
 
-	public void setSenha(int senha) {
+	public void setSenha(String senha) {
 		this.senha = senha;
 	}
+	
+	public abstract Playlist getCurrentPlaylist();
 	
 }

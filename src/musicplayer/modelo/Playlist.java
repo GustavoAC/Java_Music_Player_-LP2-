@@ -1,4 +1,4 @@
-package modelo;
+package musicplayer.modelo;
 
 import java.util.ArrayList;
 
@@ -17,6 +17,16 @@ public class Playlist {
 		musicas.add(musica); 
 	}
 
+	public Musica getMusic(int index) {
+		if (index < 0 || index > musicas.size())
+			return null;
+		return musicas.get(index);
+	}
+	
+	public void removeMusica(int index) {
+		musicas.remove(index);
+	}
+	
 	public ArrayList<Musica> getMusicas() {
 		return musicas;
 	}
