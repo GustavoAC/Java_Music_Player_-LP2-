@@ -43,6 +43,14 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		userMenu.add(uItem4);
 		
 		rItem1.addActionListener(this);
+		rItem2.addActionListener(this);
+		rItem3.addActionListener(this);
+		rItem4.addActionListener(this);
+		uItem1.addActionListener(this);
+		uItem2.addActionListener(this);
+		uItem3.addActionListener(this);
+		uItem4.addActionListener(this);
+		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(width, height);
 		this.setTitle("Music Player");
@@ -52,10 +60,32 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == rItem1) {
-			JOptionPane.showConfirmDialog(null, "Somente um teste");
+			JOptionPane.showConfirmDialog(null, "Tocando música selecionada");
 			controle.tocarMusicaSelecionada(0);
+		} else if (e.getSource() == rItem2) {
+			JOptionPane.showConfirmDialog(null, "Música adicionada");
+			controle.adicionarMusica(0);
+		} else if (e.getSource() == rItem3) {
+			JOptionPane.showConfirmDialog(null, "Tocando Playlist selecionada");
+			controle.tocarPlaylistSelecionada(0);
+		} else if (e.getSource() == rItem4) {
+			JOptionPane.showConfirmDialog(null, "Playlist Atual salva");
+			controle.salvarPlaylistAtual(0);
+		} else if (e.getSource() == uItem1) {
+			JOptionPane.showConfirmDialog(null, "Usuarios listados");
+			controle.listarUsuarios(0);
+		} else if (e.getSource() == uItem2) {
+			JOptionPane.showConfirmDialog(null, "Login feito com sucesso");
+			controle.logar(0);
+		} else if (e.getSource() == uItem3) {
+			JOptionPane.showConfirmDialog(null, "Usuario Comum registrado");
+			controle.registarUsuarioComum(0);
+		} else if (e.getSource() == uItem4) {
+			JOptionPane.showConfirmDialog(null, "Usuario VIP registrado");
+			controle.registarUsuarioVIP(0);
 		}
 	}
+	
 	
 	public static void main(String[] args) {
 		TelaPrincipal tp = new TelaPrincipal(new ControlePrincipal(), 600, 400);

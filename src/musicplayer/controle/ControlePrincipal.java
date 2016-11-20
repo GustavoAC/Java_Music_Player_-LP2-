@@ -17,6 +17,41 @@ public class ControlePrincipal {
 		
 	}
 	
+	public void adicionarMusica(int index) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void tocarPlaylistSelecionada(int index) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void salvarPlaylistAtual(int index) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void listarUsuarios(int index) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void logar(int index) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void registarUsuarioComum(int index) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void registarUsuarioVIP(int index) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	/* Teste do player
 	public static void main(String[] args) {
 		Usuario user = new UsuarioComum(12, "fulano", "12345");
