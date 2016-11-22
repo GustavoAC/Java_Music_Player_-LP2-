@@ -3,16 +3,28 @@ package musicplayer.modelo;
 import java.util.ArrayList;
 
 public class Playlist {
+	private String nome; 
 	private ArrayList<Musica> musicas;
 
-	public Playlist(ArrayList<Musica> musicas) {
+	public Playlist(String nome, ArrayList<Musica> musicas) {
+		this.nome = nome;
 		this.musicas = musicas;
 	}
 	
 	public Playlist() {
+		nome = "Default";
 		musicas = new ArrayList<Musica>();
 	}
 	
+	
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
 	public void addMusic(Musica musica) {
 		musicas.add(musica); 
 	}
@@ -33,5 +45,9 @@ public class Playlist {
 
 	public void setMusicas(ArrayList<Musica> musicas) {
 		this.musicas = musicas;
+	}
+	
+	public int getSize() {
+		return this.musicas.size();
 	}
 }
