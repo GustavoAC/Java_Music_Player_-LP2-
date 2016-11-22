@@ -6,69 +6,52 @@ import java.io.FileNotFoundException;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.advanced.AdvancedPlayer;
 
-
-// extends Thread?
-public class MusicPlayer {
-	private Usuario user;
-	private Playlist currPlaylist;
-	private int currentMusic;
+public class MusicPlayer implements Runnable {
 	private AdvancedPlayer advPlayer;
+	private Musica currMusic;
+	private Thread activeThread;
+	private boolean stopped;
 	
-	// Nenhum construtor é permitido criar um novo usuario ou playlist
-	public MusicPlayer(Usuario user, Playlist currPlaylist) {
-		this.user = user;
-		this.currPlaylist = currPlaylist;
-		currentMusic = 0;
-	}
-
-	public Usuario getUser() {
-		return user;
-	}
-
-	public Playlist getCurrPlaylist() {
-		return currPlaylist;
-	}
-
-	public void setUser(Usuario user) {
-		this.user = user;
-	}
-
-	public void setCurrPlaylist(Playlist currPlaylist) {
-		this.currPlaylist = currPlaylist;
-	}
-
-	public int getCurrentMusic() {
-		return currentMusic;
-	}
-
-	public void setCurrentMusic(int currentMusic) {
-		this.currentMusic = currentMusic;
-	}
 	
-	/* Falta:
-	 * - Pausar
-	 * - Continuar após pausa
-	 * - Avançar depois de terminar
-	 * (provavelmente mover o index para a classe Playlist)
-	 */
-	
-	public void addMusicToPlaylist(Musica music) {
-		currPlaylist.addMusic(music);
-	}
-	
-	// Mostly undone
-	public void playCurrentMusic() {
-		Musica mus = currPlaylist.getMusic(currentMusic);
-		if (mus == null) return;
-		
+	public void prepare(Musica mus) {
+		currMusic = mus;
 		try {
-			FileInputStream fis = new FileInputStream(mus.getPath());
+			FileInputStream fis = new FileInputStream(currMusic.getPath());
 			advPlayer = new AdvancedPlayer(fis);
-			advPlayer.play();
-		} catch (FileNotFoundException e) {
+		} catch (FileNotFoundException | JavaLayerException e) {
 			e.printStackTrace();
+		}
+	}
+	
+	public void pause() {
+		activeThread.suspend();
+		stopped = true;
+	}
+	
+	public void stop() {
+		advPlayer.close();
+	}
+	
+	public void play() {
+		if (stopped) {
+			activeThread.resume();
+			stopped = true;
+		} else {
+			if (activeThread != null && activeThread.isAlive())
+				activeThread.interrupt();		
+			activeThread = new Thread(this);
+			activeThread.setDaemon(true);
+			activeThread.start();
+		}
+	}
+	
+	@Override
+	public void run() {
+		try {
+			advPlayer.play();
 		} catch (JavaLayerException e) {
 			e.printStackTrace();
 		}
 	}
+	
 }

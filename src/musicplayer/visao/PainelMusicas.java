@@ -28,7 +28,7 @@ public class PainelMusicas {
 		if (pl != null) {	
 			ArrayList<Musica> musicas = pl.getMusicas();
 			for (Musica musica : musicas) {
-				model.add(model.getSize(), musica.getPath());
+				model.addElement(musica.getPath());
 			}
 		}
 		
