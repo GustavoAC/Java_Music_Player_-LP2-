@@ -1,4 +1,7 @@
-package musicplayer.modelo;
+package musicplayer.modelo.player;
+
+import musicplayer.modelo.users.Usuario;
+import musicplayer.modelo.users.UsuarioComum;
 
 public class PlayerAdmin {
 	private Usuario user;
@@ -65,7 +68,7 @@ public class PlayerAdmin {
 	public static void main(String[] args) throws InterruptedException {
 		UsuarioComum uc = new UsuarioComum(10, "asd", "12123");
 		Playlist pl = new Playlist();
-		pl.addMusic(new Musica("test.mp3", 123));
+		pl.addMusic(new Musica("test.mp3", "123"));
 		PlayerAdmin pa = new PlayerAdmin(uc, pl);
 		pa.playCurrentMusic();
 				

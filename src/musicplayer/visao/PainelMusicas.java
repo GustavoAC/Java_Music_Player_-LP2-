@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 import musicplayer.controle.ControlePrincipal;
-import musicplayer.modelo.Musica;
-import musicplayer.modelo.Playlist;
+import musicplayer.modelo.player.Musica;
+import musicplayer.modelo.player.Playlist;
 
 public class PainelMusicas extends JPanel {
 

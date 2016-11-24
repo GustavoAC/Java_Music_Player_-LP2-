@@ -1,4 +1,4 @@
-package musicplayer.modelo;
+package musicplayer.modelo.patriciatree;
 
 import java.util.ArrayList;
 

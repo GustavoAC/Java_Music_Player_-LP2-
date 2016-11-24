@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 import musicplayer.controle.ControlePrincipal;
-import musicplayer.modelo.Musica;
-import musicplayer.modelo.Playlist;
+import musicplayer.modelo.player.Musica;
+import musicplayer.modelo.player.Playlist;
 
 @SuppressWarnings("serial")
 public class TelaPrincipal extends JFrame implements ActionListener {
@@ -44,15 +44,15 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		this.setJMenuBar(menuBar);
 		this.setLayout(null);
 		
-		Musica m1 = new Musica("Musica 1", 120);
-		Musica m2 = new Musica("Musica 2", 120);
+		Musica m1 = new Musica("Musica 1", "120");
+		Musica m2 = new Musica("Musica 2", "120");
 		Playlist pl = new Playlist();
 		pl.addMusic(m1);
 		pl.addMusic(m2);
 		musicasPlAtual = new PainelMusicas(new ControlePrincipal(), pl, 250, 400, 625, 50);
 		
-		Musica m3 = new Musica("Musica 1", 120);
-		Musica m4 = new Musica("Musica 2", 120);
+		Musica m3 = new Musica("Musica 1", "120");
+		Musica m4 = new Musica("Musica 2", "120");
 		Playlist pll = new Playlist();
 		pll.addMusic(m3);
 		pll.addMusic(m4);

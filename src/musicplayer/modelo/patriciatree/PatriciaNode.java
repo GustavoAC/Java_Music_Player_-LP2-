@@ -1,4 +1,4 @@
-package musicplayer.modelo;
+package musicplayer.modelo.patriciatree;
 
 public class PatriciaNode {
 	private String content;

@@ -1,4 +1,4 @@
-package musicplayer.modelo;
+package musicplayer.modelo.player;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

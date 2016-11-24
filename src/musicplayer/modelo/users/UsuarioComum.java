@@ -1,4 +1,7 @@
-package musicplayer.modelo;
+package musicplayer.modelo.users;
+
+import musicplayer.modelo.player.Musica;
+import musicplayer.modelo.player.Playlist;
 
 public class UsuarioComum extends Usuario {
 	private Playlist playlist;

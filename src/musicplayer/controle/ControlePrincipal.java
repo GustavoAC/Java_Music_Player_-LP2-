@@ -2,11 +2,8 @@ package musicplayer.controle;
 
 import java.io.IOException;
 
-import musicplayer.modelo.BancoDeUsuarios;
-import musicplayer.modelo.MusicPlayer;
-import musicplayer.modelo.Musica;
-import musicplayer.modelo.Usuario;
-import musicplayer.modelo.UsuarioComum;
+import musicplayer.modelo.users.BancoDeUsuarios;
+import musicplayer.modelo.player.MusicPlayer;
 import musicplayer.visao.TelaPrincipal;
 
 public class ControlePrincipal {

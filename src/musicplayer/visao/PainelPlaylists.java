@@ -17,8 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import musicplayer.controle.ControlePrincipal;
-import musicplayer.modelo.Musica;
-import musicplayer.modelo.Playlist;
+import musicplayer.modelo.player.Musica;
+import musicplayer.modelo.player.Playlist;
 
 public class PainelPlaylists extends JPanel  {
 
