@@ -1,4 +1,4 @@
-package musicplayer.visao;
+	package musicplayer.visao;
 
 import java.awt.BorderLayout;
 import java.awt.event.MouseAdapter;

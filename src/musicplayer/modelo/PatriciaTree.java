@@ -1,5 +1,7 @@
 package musicplayer.modelo;
 
+import java.util.ArrayList;
+
 public class PatriciaTree {
 	private PatriciaNode root;
 	private PatriciaTree[] subTrees;
@@ -94,7 +96,7 @@ public class PatriciaTree {
 			if (pos < 0) return;
 			
 			if (subTrees[pos] == null) {
-				subTrees[pos] = new PatriciaTree(cont);
+				subTrees[pos] = new PatriciaTree(cont.substring(i));
 				subTrees[pos].subTrees[NULLNODE] = new PatriciaTree();
 			} else {
 				subTrees[pos].insert(cont.substring(i));
@@ -103,7 +105,7 @@ public class PatriciaTree {
 	}
 	
 	/* Make an explanation here */
-	public PatriciaTree searchForIteration(String target, String searchBase) {
+	public PatriciaTree searchForIteration(String target, StringBuilder searchBase) {
 		// First call only. Gets the whole tree if empty target.
 		if (target.equals("")) return this;
 		
@@ -125,25 +127,46 @@ public class PatriciaTree {
 			if (pos < 0 || subTrees[pos] == null)
 				return null;
 			
-			searchBase += root.getContent();
+			searchBase.append(root.getContent());
 			return subTrees[pos].searchForIteration(target.substring(i), searchBase);
 		}
 		
 		// root equals target or root is longer than target,
 		// current tree works as start point for iteration
 		else {
-			searchBase += root.getContent();
+			searchBase.append(root.getContent());
 			return this;
 		}
 	}
 	
-	/*
-	public ??? iterate(String searchBase) {
-		returns all strings str from that point as searchBase + str;
-		Use ArrayList? (probably)
-		Use String array?
+	public ArrayList<String> iterate() {
+		ArrayList<String> ret = new ArrayList<String>();
+		
+		for (int i = 0; i < 66; i++) {
+			if (subTrees[i] != null) {
+				ArrayList<String> temp = subTrees[i].iterate(subTrees[i].root.getContent());
+				ret.addAll(temp);
+			}
+		}
+		return ret;
 	}
-	*/
+	
+	public ArrayList<String> iterate(String searchBase) {
+		System.out.println("Debug. searchBase: " + searchBase);
+		
+		ArrayList<String> ret = new ArrayList<String>();
+		if (subTrees[66] != null) {
+			ret.add(searchBase);
+		}
+		
+		for (int i = 0; i < 66; i++) {
+			if (subTrees[i] != null) {
+				ArrayList<String> temp = subTrees[i].iterate(searchBase + subTrees[i].root.getContent());
+				ret.addAll(temp);
+			}
+		}
+		return ret;
+	}
 	
 	// Not really needed, so let it be done last.
 	public void remove() {
@@ -154,5 +177,37 @@ public class PatriciaTree {
 	public void clear() {
 		for (int i = 0; i < 65; i++)
 			subTrees[i] = null;
+	}
+	
+	public static void main(String[] args) {
+		PatriciaTree pt = new PatriciaTree();
+		pt.insert("agua");
+		pt.insert("aguado");
+		pt.insert("a");
+		pt.insert("original");
+		pt.insert("oregano");
+		pt.insert("omar");
+		pt.insert("iguana");
+		pt.insert("123");
+		pt.insert("parafuso");
+		pt.insert("parafuseta");
+		pt.insert("pi");
+		pt.insert("po");
+		
+		ArrayList<String> result = pt.iterate();
+		System.out.println("Achados: ");
+		for (String string : result) {
+			System.out.println(string);
+		}
+		
+		// O StringBuilder tem que ser passado por referencia pra ser usado na
+		// hora da impressão, classe estranha é gambiarra pra passar por parâmetro.
+		StringBuilder base = new StringBuilder();
+		PatriciaTree sub = pt.searchForIteration("o", base);
+		result = sub.iterate();
+		System.out.println("Base: " + base + " Achados: ");
+		for (String string : result) {
+			System.out.println(string);
+		}
 	}
 }
