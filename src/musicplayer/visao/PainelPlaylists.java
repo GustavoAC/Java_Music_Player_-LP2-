@@ -1,6 +1,8 @@
 package musicplayer.visao;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -8,25 +10,22 @@ import java.util.ArrayList;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import musicplayer.controle.ControlePrincipal;
 import musicplayer.modelo.Musica;
 import musicplayer.modelo.Playlist;
 
-public class PainelPlaylists {
+public class PainelPlaylists extends JPanel  {
 
-	JFrame frame;
-
-	public PainelPlaylists(ControlePrincipal controle, ArrayList<Playlist> playlists, int width, int height) {
-		frame = new JFrame("dfsj");
-		frame.setSize(width, height);
-		frame.setLayout(new BorderLayout());
-		frame.setVisible(true);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
-
+	public PainelPlaylists(ControlePrincipal controle, ArrayList<Playlist> playlists, int width, int height, int x, int y) {
+		super(new BorderLayout());
+		this.setBounds(x,y,width, height);
+		
 		DefaultListModel<String> model = new DefaultListModel<String>();
 		JList<String> list = new JList<String>(model);
 		
@@ -37,9 +36,8 @@ public class PainelPlaylists {
 		}
 
 		JScrollPane pane = new JScrollPane(list);
-
-		frame.add(pane);
-		frame.setVisible(true);
+		this.add(pane);
+		this.setVisible(true);
 
 		MouseListener mouseListener = new MouseAdapter() {
 			public void mouseClicked(MouseEvent mouseEvent) {
@@ -57,13 +55,4 @@ public class PainelPlaylists {
 		list.addMouseListener(mouseListener);
 	}
 
-	public static void main(String[] args) {
-		ArrayList<Playlist> array = new ArrayList<Playlist>();
-		Playlist pl1 = new Playlist();
-		Playlist pl2 = new Playlist();
-		array.add(pl1);
-		array.add(pl2);
-		PainelPlaylists pp = new PainelPlaylists(new ControlePrincipal(), array, 200, 300);
-
-	}
 }

@@ -1,17 +1,26 @@
 package musicplayer.visao;
 
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
 import musicplayer.controle.ControlePrincipal;
+import musicplayer.modelo.Musica;
+import musicplayer.modelo.Playlist;
 
 @SuppressWarnings("serial")
 public class TelaPrincipal extends JFrame implements ActionListener {
 	
 	private ControlePrincipal controle;
 	
+	private PainelMusicas musicasPlAtual;
+	private PainelMusicas todasAsMusicas;
+	private PainelPlaylists playlists;
 	private JMenuBar menuBar = new JMenuBar();
 	private JMenu reproducaoMenu = new JMenu("Reprodução");
 	private JMenu userMenu = new JMenu("Usuários");
@@ -23,11 +32,71 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	private JMenuItem uItem2 = new JMenuItem("Login");
 	private JMenuItem uItem3 = new JMenuItem("Registrar Usuario Comum");
 	private JMenuItem uItem4 = new JMenuItem("Registar VIP");
+	private JButton b1 = new JButton("+ Pasta");
+	private JButton b2 = new JButton("Prev");
+	private JButton b3 = new JButton("Play");
+	private JButton b4 = new JButton("Pause");
+	private JButton b5 = new JButton("Post");
+	private JButton b6 = new JButton("+ Playlist");
 	
-	public TelaPrincipal(ControlePrincipal controle, int width, int height) {
+	public TelaPrincipal(ControlePrincipal controle) {
 		this.controle = controle;
-		
 		this.setJMenuBar(menuBar);
+		this.setLayout(null);
+		
+		Musica m1 = new Musica("Musica 1", 120);
+		Musica m2 = new Musica("Musica 2", 120);
+		Playlist pl = new Playlist();
+		pl.addMusic(m1);
+		pl.addMusic(m2);
+		musicasPlAtual = new PainelMusicas(new ControlePrincipal(), pl, 250, 400, 625, 50);
+		
+		Musica m3 = new Musica("Musica 1", 120);
+		Musica m4 = new Musica("Musica 2", 120);
+		Playlist pll = new Playlist();
+		pll.addMusic(m3);
+		pll.addMusic(m4);
+		todasAsMusicas = new PainelMusicas(new ControlePrincipal(), pll, 550, 150, 25, 300);
+		
+		ArrayList<Playlist> array = new ArrayList<Playlist>();
+		Playlist pl1 = new Playlist();
+		Playlist pl2 = new Playlist();
+		array.add(pl1);
+		array.add(pl2);
+		playlists = new PainelPlaylists(new ControlePrincipal(), array, 250, 150, 325, 50);
+		
+		JLabel nome_pl = new JLabel("Nome Playlist");
+		nome_pl.setBounds(625,0,250,50); 
+		nome_pl.setFont(new Font("Dialog", Font.PLAIN, 18));
+		
+ 		JLabel play = new JLabel("Playlists");
+ 		play.setBounds(325,0,250,50); 
+ 		play.setFont(new Font("Dialog", Font.PLAIN, 18));
+
+ 		JLabel todas = new JLabel("Todas as músicas");
+ 		todas.setBounds(25,250,250,50); 
+ 		todas.setFont(new Font("Dialog", Font.PLAIN, 18));
+ 		
+ 		b1.setBounds(25, 500, 90, 25);
+ 		b2.setBounds(270, 500, 90, 25);
+ 		b3.setBounds(360, 490, 90, 40);
+ 		b4.setBounds(450, 490, 90, 40);
+ 		b5.setBounds(540, 500, 90, 25);
+ 		b6.setBounds(785, 500, 90, 25);
+ 		
+ 		this.add(b1);
+ 		this.add(b2);
+ 		this.add(b3);
+ 		this.add(b4);
+ 		this.add(b5);
+ 		this.add(b6);
+ 		this.add(musicasPlAtual);
+		this.add(playlists);
+		this.add(nome_pl);
+		this.add(play);
+		this.add(todas);
+		this.add(todasAsMusicas);
+		
 		menuBar.add(reproducaoMenu);
 		reproducaoMenu.add(rItem1);
 		reproducaoMenu.add(rItem2);
@@ -41,7 +110,12 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		userMenu.addSeparator();
 		userMenu.add(uItem3);
 		userMenu.add(uItem4);
-		
+		b1.addActionListener(this);
+		b2.addActionListener(this);
+		b3.addActionListener(this);
+		b4.addActionListener(this);
+		b5.addActionListener(this);
+		b6.addActionListener(this);
 		rItem1.addActionListener(this);
 		rItem2.addActionListener(this);
 		rItem3.addActionListener(this);
@@ -52,7 +126,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		uItem4.addActionListener(this);
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setSize(width, height);
+		this.setSize(900, 600);
 		this.setTitle("Music Player");
 		this.setVisible(true);
 	}
@@ -83,11 +157,29 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		} else if (e.getSource() == uItem4) {
 			JOptionPane.showConfirmDialog(null, "Usuario VIP registrado");
 			controle.registarUsuarioVIP(0);
+		} else if (e.getSource() == b1) {
+			JOptionPane.showConfirmDialog(null, "Nova pasta adicionada");
+			controle.adicionarPasta(0);;
+		} else if (e.getSource() == b2) {
+			JOptionPane.showConfirmDialog(null, "Voltar musica");
+			controle.voltarMusica(0);
+		} else if (e.getSource() == b3) {
+			JOptionPane.showConfirmDialog(null, "Play");
+			controle.play(0);
+		} else if (e.getSource() == b4) {
+			JOptionPane.showConfirmDialog(null, "Pause");
+			controle.pause(0);
+		} else if (e.getSource() == b5) {
+			JOptionPane.showConfirmDialog(null, "Passar música");
+			controle.passarMusica(0);
+		} else if (e.getSource() == b6) {
+			JOptionPane.showConfirmDialog(null, "Nova playlist adicionada");
+			controle.adicionarPlaylist(0);;
 		}
 	}
 	
 	
 	public static void main(String[] args) {
-		TelaPrincipal tp = new TelaPrincipal(new ControlePrincipal(), 600, 400);
+		TelaPrincipal tp = new TelaPrincipal(new ControlePrincipal());
 	}
 }
