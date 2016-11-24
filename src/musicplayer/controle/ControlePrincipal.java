@@ -1,5 +1,7 @@
 package musicplayer.controle;
 
+import java.io.IOException;
+
 import musicplayer.modelo.BancoDeUsuarios;
 import musicplayer.modelo.MusicPlayer;
 import musicplayer.modelo.Musica;
@@ -52,6 +54,36 @@ public class ControlePrincipal {
 		
 	}
 	
+	public void adicionarPasta(int index) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void voltarMusica(int index) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void play(int index) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void pause(int index) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void passarMusica(int index) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	public void adicionarPlaylist(int index) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 	/* Teste do player
 	public static void main(String[] args) {
 		Usuario user = new UsuarioComum(12, "fulano", "12345");
@@ -65,7 +97,8 @@ public class ControlePrincipal {
 	// Teste Visao
 	public static void main(String[] args) {
 		ControlePrincipal cp = new ControlePrincipal();
-		TelaPrincipal tp = new TelaPrincipal(cp, 500, 300);
+		TelaPrincipal tp = new TelaPrincipal(cp);
+		
 	}
 
 	
