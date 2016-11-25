@@ -1,9 +1,14 @@
 package musicplayer.modelo.filemanagement;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import musicplayer.modelo.player.Musica;
+import musicplayer.modelo.player.Playlist;
+import musicplayer.modelo.users.Usuario;
+import musicplayer.modelo.users.UsuarioComum;
+import musicplayer.modelo.users.UsuarioVip;
 
 /* Estrutura do arquivo são vários conjuntos de 2 linhas
  * CAMINHO ABSOLUTO
@@ -24,7 +29,7 @@ public class MusicReader {
 		ArrayList<String> temp = null;
 		
 		try {
-			temp = fm.read("./musicas.dat");
+			temp = fm.read("./playlist_padrao.dat");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -40,7 +45,7 @@ public class MusicReader {
 			temp.add(music.getPath());
 			temp.add(music.getFilename());
 			try {
-				fm.write("./musicas.dat", temp, true);
+				fm.write("./playlist_padrao.dat", temp, true);
 				playlist.add(music);
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -57,7 +62,7 @@ public class MusicReader {
 					temp.add(m.getPath());
 					temp.add(m.getFilename());
 				}
-				fm.write("./musicas.dat", temp, false);
+				fm.write("./playlist_padrao.dat", temp, false);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}

@@ -25,6 +25,12 @@ public class UserReader {
 		loadUsers();
 	}
 	
+	
+	
+	public ArrayList<Usuario> getUsers() {
+		return users;
+	}
+
 	public void loadUsers() {
 		ArrayList<String> temp = null;
 		try {

@@ -12,13 +12,17 @@ public class ControlePrincipal {
 	private MusicPlayer mp;
 	// Parte gráfica
 	
+	public BancoDeUsuarios getBanco() {
+		return banco;
+	}
+	
 	public void tocarMusicaSelecionada(int index) {
 		// TODO Auto-generated method stub
 		
 	}
-	
+
 	public void adicionarMusica(int index) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 	
@@ -97,7 +101,7 @@ public class ControlePrincipal {
 		ControlePrincipal cp = new ControlePrincipal();
 		SessionManager sm = new SessionManager();
 		TelaPrincipal tp = new TelaPrincipal();
-		sm.inicializar(tp);
+		sm.inicializar(tp, cp);
 		tp.iniciar(cp);
 		
 	}

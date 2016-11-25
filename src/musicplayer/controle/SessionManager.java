@@ -8,6 +8,8 @@ import musicplayer.modelo.filemanagement.PlaylistReader;
 import musicplayer.modelo.filemanagement.UserReader;
 import musicplayer.modelo.player.Musica;
 import musicplayer.modelo.player.Playlist;
+import musicplayer.modelo.users.Usuario;
+import musicplayer.modelo.users.UsuarioVip;
 import musicplayer.visao.PainelMusicas;
 import musicplayer.visao.PainelPlaylists;
 import musicplayer.visao.TelaPrincipal;
@@ -32,11 +34,40 @@ public class SessionManager {
 		userReader = new UserReader();
 	}
 	
+	
+	
+	public DirectoryReader getDirReader() {
+		return dirReader;
+	}
+
+
+
+	public MusicReader getMusicReader() {
+		return musicReader;
+	}
+
+
+
+	public PlaylistReader getPlayReader() {
+		return playReader;
+	}
+
+
+
+	public UserReader getUserReader() {
+		return userReader;
+	}
+
+
+
+
+
 	// Fazer função para inicializar os displays da Visao
-	public void inicializar(TelaPrincipal tp) {
+	public void inicializar(TelaPrincipal tp, ControlePrincipal cp) {
 		iniAllMusic(tp);
 		iniPlaylists(tp);
 		iniPlaylistAtual(tp);
+		iniUserReader(cp);
 	}
 	
 	private void iniAllMusic(TelaPrincipal tp) {
@@ -61,5 +92,16 @@ public class SessionManager {
 		}
 		tp.setMusicasPlAtual(new PainelMusicas(new ControlePrincipal(), pl, 250, 400, 625, 75));
 		
+	}
+	
+	private void iniUserReader(ControlePrincipal cp) {
+		ArrayList<Usuario> u = userReader.getUsers();
+		for (Usuario usuario : u) {
+			boolean isVip = false;
+			if (usuario instanceof UsuarioVip) {
+				isVip = true;
+			}
+			cp.getBanco().addUsuario(usuario.getId(), usuario.getNome(), usuario.getSenha(), isVip);
+		}
 	}
 }
