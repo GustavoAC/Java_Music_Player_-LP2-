@@ -21,16 +21,20 @@ public class ControlePrincipal {
 	}
 	
 	public void start() {
-		
+	
+	}	
+	
+	public BancoDeUsuarios getBanco() {
+		return banco;
 	}
 	
 	public void tocarMusicaSelecionada(int index) {
 		// TODO Auto-generated method stub
 		
 	}
-	
+
 	public void adicionarMusica(int index) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 	

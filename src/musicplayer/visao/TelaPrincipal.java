@@ -15,9 +15,11 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	
 	private ControlePrincipal controle;
 	
-	private PainelMusicas musicasPlAtual;
-	private PainelMusicas todasAsMusicas;
-	private PainelPlaylists playlists;
+	private PainelMusicas musicasPlAtual = new PainelMusicas(new ControlePrincipal(), null, 250, 400, 625, 75);
+	private PainelMusicas todasAsMusicas = new PainelMusicas(new ControlePrincipal(), null, 550, 150, 25, 325);
+	private PainelPlaylists playlists = new PainelPlaylists(new ControlePrincipal(), null, 250, 175, 325, 75);
+	private JLabel nome_usuario = new JLabel("Nome Usuário");
+	private JLabel isVip = new JLabel("Vip");
 	private JMenuBar menuBar = new JMenuBar();
 	private JMenu reproducaoMenu = new JMenu("Reprodução");
 	private JMenu userMenu = new JMenu("Usuários");
@@ -39,7 +41,14 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	private JTextField filtrarPlaylists = new JTextField();
 	private JTextField filtrarTodasMusicas = new JTextField();
 	
-	
+
+	public void setNome_usuario(JLabel nome_usuario) {
+		this.nome_usuario = nome_usuario;
+	}
+
+	public void setIsVip(JLabel isVip) {
+		this.isVip = isVip;
+	}
 
 	public void setMusicasPlAtual(PainelMusicas musicasPlAtual) {
 		this.musicasPlAtual = musicasPlAtual;
@@ -57,6 +66,12 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		this.controle = controle;
 		this.setJMenuBar(menuBar);
 		this.setLayout(null);
+		
+		nome_usuario.setBounds(25,0,250,50);
+		nome_usuario.setFont(new Font("Dialog", Font.PLAIN, 18));
+		
+		isVip.setBounds(25,25,250,50);
+		isVip.setFont(new Font("Dialog", Font.PLAIN, 14));
 		
 		JLabel nome_pl = new JLabel("Nome Playlist");
 		nome_pl.setBounds(625,0,250,50); 
@@ -113,6 +128,8 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		this.add(nome_pl);
 		this.add(play);
 		this.add(todas);
+		this.add(isVip);
+		this.add(nome_usuario);
 		this.add(todasAsMusicas);
 		this.add(filtrarMusicas);
 		this.add(filtrarTodasMusicas);
