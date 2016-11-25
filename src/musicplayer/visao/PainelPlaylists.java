@@ -22,7 +22,7 @@ import musicplayer.modelo.player.Playlist;
 
 public class PainelPlaylists extends JPanel  {
 
-	public PainelPlaylists(ControlePrincipal controle, ArrayList<Playlist> playlists, int width, int height, int x, int y) {
+	public PainelPlaylists(ControlePrincipal controle, ArrayList<Playlist> playlists, int x, int y, int width, int height) {
 		super(new BorderLayout());
 		this.setBounds(x,y,width, height);
 		

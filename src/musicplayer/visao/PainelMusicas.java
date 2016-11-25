@@ -16,7 +16,7 @@ import musicplayer.modelo.player.Playlist;
 
 public class PainelMusicas extends JPanel {
 
-	public PainelMusicas(ControlePrincipal controle, Playlist pl, int width, int height, int x, int y) {
+	public PainelMusicas(ControlePrincipal controle, Playlist pl, int x, int y, int width, int height) {
 		super(new BorderLayout());
 		this.setBounds(x, y, width, height);
 		

@@ -8,7 +8,7 @@ import musicplayer.visao.TelaPrincipal;
 public class ControlePrincipal {
 	private SessionManager sessionManager;
 	private BancoDeUsuarios banco;
-	private PlayerAdmin mp;
+	private PlayerAdmin playerAdmin;
 	private TelaPrincipal telaPrincipal;
 	
 	
@@ -17,7 +17,7 @@ public class ControlePrincipal {
 	public ControlePrincipal() {
 		sessionManager = new SessionManager();
 		banco = new BancoDeUsuarios(sessionManager.getUserList());
-		mp = new PlayerAdmin(sessionManager.getCurrentPlaylist());
+		playerAdmin = new PlayerAdmin(sessionManager.getCurrentPlaylist());
 		telaPrincipal = new TelaPrincipal(this);
 	}
 	
@@ -36,12 +36,10 @@ public class ControlePrincipal {
 
 	public void adicionarMusica(int index) {
 		
-		
 	}
 	
 	public void tocarPlaylistSelecionada(int index) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
 	
 	public void salvarPlaylistAtual(int index) {
@@ -51,12 +49,10 @@ public class ControlePrincipal {
 	
 	public void listarUsuarios(int index) {
 		// TODO Auto-generated method stub
-		
 	}
 	
 	public void logar(int index) {
 		// TODO Auto-generated method stub
-		
 	}
 	
 	public void registarUsuarioComum(int index) {
@@ -66,32 +62,26 @@ public class ControlePrincipal {
 	
 	public void registarUsuarioVIP(int index) {
 		// TODO Auto-generated method stub
-		
 	}
 	
 	public void adicionarPasta(int index) {
 		// TODO Auto-generated method stub
-		
 	}
 	
-	public void voltarMusica(int index) {
-		// TODO Auto-generated method stub
-		
+	public void voltarMusica() {
+		playerAdmin.previous();
 	}
 	
-	public void play(int index) {
-		// TODO Auto-generated method stub
-		
+	public void play() {
+		playerAdmin.playCurrentMusic();
 	}
 	
-	public void pause(int index) {
-		// TODO Auto-generated method stub
-		
+	public void pause() {
+		playerAdmin.pause();
 	}
 	
-	public void passarMusica(int index) {
-		// TODO Auto-generated method stub
-		
+	public void passarMusica() {
+		playerAdmin.skip();
 	}
 	
 	public void adicionarPlaylist(int index) {

@@ -46,32 +46,10 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 
 	public TelaPrincipal(ControlePrincipal controlePrincipal) {
 		controle = controlePrincipal;
-		musicasPlAtual = new PainelMusicas(controle, null, 250, 400, 625, 75);
-		todasAsMusicas = new PainelMusicas(controle, null, 550, 150, 25, 325);
-		playlists = new PainelPlaylists(controle, null, 250, 175, 325, 75);
-	}
-
-	public void setNome_usuario(JLabel nome_usuario) {
-		this.nome_usuario = nome_usuario;
-	}
-
-	public void setIsVip(JLabel isVip) {
-		this.isVip = isVip;
-	}
-
-	public void setMusicasPlAtual(PainelMusicas musicasPlAtual) {
-		this.musicasPlAtual = musicasPlAtual;
-	}
-
-	public void setTodasAsMusicas(PainelMusicas todasAsMusicas) {
-		this.todasAsMusicas = todasAsMusicas;
-	}
-
-	public void setPlaylists(PainelPlaylists playlists) {
-		this.playlists = playlists;
-	}
-
-	public void start() {
+		musicasPlAtual = new PainelMusicas(controle, null, 625, 75, 250, 400);
+		todasAsMusicas = new PainelMusicas(controle, null, 25, 325, 550, 150);
+		playlists = new PainelPlaylists(controle, null, 325, 75, 250, 175);
+		
 		this.setJMenuBar(menuBar);
 		this.setLayout(null);
 		
@@ -155,6 +133,29 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 		this.setSize(900, 600);
 		this.setResizable(false);
 		this.setTitle("Music Player");
+	}
+
+	public void setNome_usuario(JLabel nome_usuario) {
+		this.nome_usuario = nome_usuario;
+	}
+
+	public void setIsVip(JLabel isVip) {
+		this.isVip = isVip;
+	}
+
+	public void setMusicasPlAtual(PainelMusicas musicasPlAtual) {
+		this.musicasPlAtual = musicasPlAtual;
+	}
+
+	public void setTodasAsMusicas(PainelMusicas todasAsMusicas) {
+		this.todasAsMusicas = todasAsMusicas;
+	}
+
+	public void setPlaylists(PainelPlaylists playlists) {
+		this.playlists = playlists;
+	}
+
+	public void start() {
 		this.setVisible(true);
 	}
 
@@ -188,17 +189,13 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 			JOptionPane.showConfirmDialog(null, "Nova pasta adicionada");
 			controle.adicionarPasta(0);;
 		} else if (e.getSource() == b2) {
-			JOptionPane.showConfirmDialog(null, "Voltar musica");
-			controle.voltarMusica(0);
+			controle.voltarMusica();
 		} else if (e.getSource() == b3) {
-			JOptionPane.showConfirmDialog(null, "Play");
-			controle.play(0);
+			controle.play();
 		} else if (e.getSource() == b4) {
-			JOptionPane.showConfirmDialog(null, "Pause");
-			controle.pause(0);
+			controle.pause();
 		} else if (e.getSource() == b5) {
-			JOptionPane.showConfirmDialog(null, "Passar música");
-			controle.passarMusica(0);
+			controle.passarMusica();
 		} else if (e.getSource() == b6) {
 			JOptionPane.showConfirmDialog(null, "Nova playlist adicionada");
 			controle.adicionarPlaylist(0);;

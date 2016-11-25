@@ -43,6 +43,16 @@ public class PlayerAdmin {
 		player.play();
 	}
 	
+	public void previous() {
+		currentMusic = (currPlaylist.getSize() + currentMusic - 1) % currPlaylist.getSize();
+		playCurrentMusic();
+	}
+	
+	public void skip() {
+		currentMusic = (currentMusic + 1)%currPlaylist.getSize();
+		playCurrentMusic();
+	}
+	
 	public void pause() {
 		player.pause();
 	}
