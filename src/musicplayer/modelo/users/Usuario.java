@@ -2,8 +2,6 @@ package musicplayer.modelo.users;
 
 import java.lang.Comparable;
 
-import musicplayer.modelo.player.Playlist;
-
 public abstract class Usuario implements Comparable<Usuario> {
 	private int id;
 	private String nome;
@@ -47,8 +45,5 @@ public abstract class Usuario implements Comparable<Usuario> {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
-	}
-	
-	public abstract Playlist getCurrentPlaylist();
-	
+	}	
 }

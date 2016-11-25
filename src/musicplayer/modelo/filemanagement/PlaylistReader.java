@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import musicplayer.modelo.player.Musica;
 import musicplayer.modelo.player.Playlist;
 import musicplayer.modelo.users.Usuario;
+import musicplayer.modelo.users.UsuarioVip;
 
 /* Estrutura dos arquivos
  * NOMEDOUSUARIODONO - IDDOUSUARIODONO
@@ -73,6 +74,19 @@ public class PlaylistReader {
 
 	public ArrayList<Playlist> getPlaylists() {
 		return playlists;
+	}
+
+	public void setPlaylistsToUsers(UserReader userReader) {
+		ArrayList<Usuario> users = userReader.getUsers();
+		UsuarioVip temp = null;
+		for (Usuario user : users) {
+			if (user instanceof UsuarioVip) {
+				temp = (UsuarioVip) user;
+				for (int i = 0; i < playlists.size(); i++)
+					if (ownerData.get(i).equals(user.getNome() + " - " + user.getId()))
+						temp.addPlaylist(playlists.get(i));
+			}
+		}
 	}
 	
 	

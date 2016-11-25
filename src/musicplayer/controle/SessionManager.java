@@ -8,6 +8,7 @@ import musicplayer.modelo.filemanagement.PlaylistReader;
 import musicplayer.modelo.filemanagement.UserReader;
 import musicplayer.modelo.player.Musica;
 import musicplayer.modelo.player.Playlist;
+import musicplayer.modelo.users.Usuario;
 import musicplayer.visao.PainelMusicas;
 import musicplayer.visao.PainelPlaylists;
 import musicplayer.visao.TelaPrincipal;
@@ -30,6 +31,15 @@ public class SessionManager {
 		musicReader = new MusicReader();
 		playReader = new PlaylistReader();
 		userReader = new UserReader();
+		setPlaylistsToUsers();
+	}
+	
+	public void setPlaylistsToUsers() {
+		playReader.setPlaylistsToUsers(userReader);
+	}
+	
+	public ArrayList<Usuario> getUserList() {
+		return userReader.getUsers();
 	}
 	
 	// Fazer função para inicializar os displays da Visao
@@ -42,9 +52,8 @@ public class SessionManager {
 	private void iniAllMusic(TelaPrincipal tp) {
 		ArrayList<Musica> m = dirReader.getValidFiles();
 		Playlist pl = new Playlist();
-		for (Musica musica : m) {
+		for (Musica musica : m)
 			pl.addMusic(musica);
-		}
 		tp.setTodasAsMusicas(new PainelMusicas(new ControlePrincipal(), pl, 550, 150, 25, 325));
 	}
 	
@@ -56,9 +65,8 @@ public class SessionManager {
 	private void iniPlaylistAtual(TelaPrincipal tp) {
 		ArrayList<Musica> m = musicReader.getPlaylist();
 		Playlist pl = new Playlist();
-		for (Musica musica : m) {
+		for (Musica musica : m)
 			pl.addMusic(musica);
-		}
 		tp.setMusicasPlAtual(new PainelMusicas(new ControlePrincipal(), pl, 250, 400, 625, 75));
 		
 	}

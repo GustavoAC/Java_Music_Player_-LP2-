@@ -1,36 +1,44 @@
 package musicplayer.modelo.users;
 
+import java.util.ArrayList;
+
 import musicplayer.modelo.bst.No;
 import musicplayer.modelo.bst.Tree;
 
 public class BancoDeUsuarios {
-	private Tree listaDeUsuarios;
+	private Tree arvoreDeUsuarios;
 
 	public BancoDeUsuarios(Tree listaDeUsuarios) {
-		this.listaDeUsuarios = listaDeUsuarios;
+		this.arvoreDeUsuarios = listaDeUsuarios;
 	}
 	
 	public BancoDeUsuarios() {
-		listaDeUsuarios = new Tree();
+		arvoreDeUsuarios = new Tree();
 	}
 	
+	public BancoDeUsuarios(ArrayList<Usuario> userList) {
+		arvoreDeUsuarios = new Tree();
+		for (Usuario u : userList)
+			arvoreDeUsuarios.insereUsuario(u);
+	}
+
 	public void addUsuario (int id, String nome, String senha, boolean isVip) {
 		if (isVip) 
-			listaDeUsuarios.insereUsuario(new UsuarioVip(id, nome, senha));
+			arvoreDeUsuarios.insereUsuario(new UsuarioVip(id, nome, senha));
 		else
-			listaDeUsuarios.insereUsuario(new UsuarioComum(id, nome, senha));
+			arvoreDeUsuarios.insereUsuario(new UsuarioComum(id, nome, senha));
 	}
 	
 	public void addUsuario (No usuario) {
-		listaDeUsuarios.inserir(usuario);
+		arvoreDeUsuarios.inserir(usuario);
 	}
 	
 	public boolean remove(int id) {
-		return listaDeUsuarios.remove(id);
+		return arvoreDeUsuarios.remove(id);
 	}
 	
 	public No buscar (int id) {
-		return listaDeUsuarios.busca(id);
+		return arvoreDeUsuarios.busca(id);
 	}
 	
 }

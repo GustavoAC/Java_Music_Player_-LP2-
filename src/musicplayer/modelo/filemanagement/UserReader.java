@@ -3,7 +3,6 @@ package musicplayer.modelo.filemanagement;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import musicplayer.modelo.player.Musica;
 import musicplayer.modelo.users.Usuario;
 import musicplayer.modelo.users.UsuarioVip;
 import musicplayer.modelo.users.UsuarioComum;
@@ -23,6 +22,10 @@ public class UserReader {
 		fm = new FileManipulator();
 		users = new ArrayList<Usuario>();
 		loadUsers();
+	}
+	
+	public ArrayList<Usuario> getUsers() {
+		return users;
 	}
 	
 	public void loadUsers() {

@@ -20,10 +20,9 @@ public class UsuarioVip extends Usuario{
 	}
 	
 	public void addPlaylist(Playlist playlist) {
-		playlists.add(playlist); 
+		playlists.add(playlist);
 	}
 
-	@Override
 	public Playlist getCurrentPlaylist() {
 		return playlists.get(currentIndex);
 	}

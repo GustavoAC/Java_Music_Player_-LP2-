@@ -10,7 +10,19 @@ import musicplayer.visao.TelaPrincipal;
 public class ControlePrincipal {
 	private BancoDeUsuarios banco;
 	private MusicPlayer mp;
+	private TelaPrincipal telaPrincipal;
+	private SessionManager sessionManager;
+	
 	// Parte gráfica
+	
+	public ControlePrincipal() {
+		sessionManager = new SessionManager();
+		banco = new BancoDeUsuarios(sessionManager.getUserList());
+	}
+	
+	public void start() {
+		
+	}
 	
 	public void tocarMusicaSelecionada(int index) {
 		// TODO Auto-generated method stub
@@ -95,12 +107,6 @@ public class ControlePrincipal {
 	// Teste Visao
 	public static void main(String[] args) {
 		ControlePrincipal cp = new ControlePrincipal();
-		SessionManager sm = new SessionManager();
-		TelaPrincipal tp = new TelaPrincipal();
-		sm.inicializar(tp);
-		tp.iniciar(cp);
-		
+		cp.start();
 	}
-
-	
 }
