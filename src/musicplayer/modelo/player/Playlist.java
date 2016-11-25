@@ -16,7 +16,6 @@ public class Playlist {
 		musicas = new ArrayList<Musica>();
 	}
 	
-	
 	public String getNome() {
 		return nome;
 	}
@@ -29,14 +28,20 @@ public class Playlist {
 		musicas.add(musica); 
 	}
 
+	public boolean contains(Musica mus) {
+		return musicas.contains(mus);
+	}
+	
 	public Musica getMusic(int index) {
-		if (index < 0 || index > musicas.size())
-			return null;
 		return musicas.get(index);
 	}
 	
 	public void removeMusica(int index) {
 		musicas.remove(index);
+	}
+	
+	public void removeMusica(Musica mus) {
+		musicas.remove(mus);
 	}
 	
 	public ArrayList<Musica> getMusicas() {

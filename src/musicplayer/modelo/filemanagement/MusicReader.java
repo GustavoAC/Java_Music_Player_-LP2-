@@ -1,14 +1,10 @@
 package musicplayer.modelo.filemanagement;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
 import musicplayer.modelo.player.Musica;
 import musicplayer.modelo.player.Playlist;
-import musicplayer.modelo.users.Usuario;
-import musicplayer.modelo.users.UsuarioComum;
-import musicplayer.modelo.users.UsuarioVip;
 
 /* Estrutura do arquivo são vários conjuntos de 2 linhas
  * CAMINHO ABSOLUTO
@@ -17,11 +13,11 @@ import musicplayer.modelo.users.UsuarioVip;
 
 public class MusicReader {
 	private FileManipulator fm;
-	private ArrayList<Musica> playlist;
+	private Playlist playlist;
 	
 	public MusicReader() {
 		fm = new FileManipulator();
-		playlist = new ArrayList<Musica>();
+		playlist = new Playlist();
 		loadMusics();
 	}
 	
@@ -35,7 +31,7 @@ public class MusicReader {
 		}
 		
 		for (int i = 0; i < temp.size(); i += 2) {
-			playlist.add(new Musica(temp.get(i), temp.get(i+1)));
+			playlist.addMusic(new Musica(temp.get(i), temp.get(i+1)));
 		}
 	}
 	
@@ -46,7 +42,7 @@ public class MusicReader {
 			temp.add(music.getFilename());
 			try {
 				fm.write("./playlist_padrao.dat", temp, true);
-				playlist.add(music);
+				playlist.addMusic(music);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -56,9 +52,9 @@ public class MusicReader {
 	public void removeMusic(Musica music) {
 		if (playlist.contains(music)) {
 			try {
-				playlist.remove(music);
+				playlist.removeMusica(music);
 				ArrayList<String> temp = new ArrayList<String>();
-				for (Musica m : playlist) {
+				for (Musica m : playlist.getMusicas()) {
 					temp.add(m.getPath());
 					temp.add(m.getFilename());
 				}
@@ -69,7 +65,7 @@ public class MusicReader {
 		}
 	}
 
-	public ArrayList<Musica> getPlaylist() {
+	public Playlist getPlaylist() {
 		return playlist;
 	}
 	

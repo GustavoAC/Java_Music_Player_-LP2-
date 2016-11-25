@@ -43,33 +43,25 @@ public class SessionManager {
 		return userReader.getUsers();
 	}
 	
-	
+	public Playlist getCurrentPlaylist() {
+		return musicReader.getPlaylist();
+	}
 	
 	public DirectoryReader getDirReader() {
 		return dirReader;
 	}
 
-
-
 	public MusicReader getMusicReader() {
 		return musicReader;
 	}
-
-
 
 	public PlaylistReader getPlayReader() {
 		return playReader;
 	}
 
-
-
 	public UserReader getUserReader() {
 		return userReader;
 	}
-
-
-
-
 
 	// Fazer função para inicializar os displays da Visao
 	public void inicializar(TelaPrincipal tp, ControlePrincipal cp) {
@@ -93,10 +85,7 @@ public class SessionManager {
 	}
 	
 	private void iniPlaylistAtual(TelaPrincipal tp) {
-		ArrayList<Musica> m = musicReader.getPlaylist();
-		Playlist pl = new Playlist();
-		for (Musica musica : m)
-			pl.addMusic(musica);
+		Playlist pl = musicReader.getPlaylist();
 		tp.setMusicasPlAtual(new PainelMusicas(new ControlePrincipal(), pl, 250, 400, 625, 75));
 		
 	}

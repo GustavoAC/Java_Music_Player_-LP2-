@@ -4,29 +4,19 @@ import musicplayer.modelo.users.Usuario;
 import musicplayer.modelo.users.UsuarioComum;
 
 public class PlayerAdmin {
-	private Usuario user;
 	private Playlist currPlaylist;
 	private MusicPlayer player;
 	private int currentMusic;
 	
 	// Nenhum construtor é permitido criar um novo usuario ou playlist
-	public PlayerAdmin(Usuario user, Playlist currPlaylist) {
-		this.user = user;
+	public PlayerAdmin(Playlist currPlaylist) {
 		this.currPlaylist = currPlaylist;
 		currentMusic = 0;
 		player = new MusicPlayer();
 	}
 
-	public Usuario getUser() {
-		return user;
-	}
-
 	public Playlist getCurrPlaylist() {
 		return currPlaylist;
-	}
-
-	public void setUser(Usuario user) {
-		this.user = user;
 	}
 
 	public void setCurrPlaylist(Playlist currPlaylist) {
@@ -66,10 +56,9 @@ public class PlayerAdmin {
 	}
 	// teste
 	public static void main(String[] args) throws InterruptedException {
-		UsuarioComum uc = new UsuarioComum(10, "asd", "12123");
 		Playlist pl = new Playlist();
 		pl.addMusic(new Musica("test.mp3", "123"));
-		PlayerAdmin pa = new PlayerAdmin(uc, pl);
+		PlayerAdmin pa = new PlayerAdmin(pl);
 		pa.playCurrentMusic();
 				
 		for (int i = 0; i < 20; ++i) {

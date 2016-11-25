@@ -1,27 +1,29 @@
 package musicplayer.controle;
 
-import java.io.IOException;
-
 import musicplayer.modelo.users.BancoDeUsuarios;
-import musicplayer.modelo.player.MusicPlayer;
+import musicplayer.modelo.player.PlayerAdmin;
 import musicplayer.controle.SessionManager;
 import musicplayer.visao.TelaPrincipal;
 
 public class ControlePrincipal {
-	private BancoDeUsuarios banco;
-	private MusicPlayer mp;
-	private TelaPrincipal telaPrincipal;
 	private SessionManager sessionManager;
+	private BancoDeUsuarios banco;
+	private PlayerAdmin mp;
+	private TelaPrincipal telaPrincipal;
+	
 	
 	// Parte gráfica
 	
 	public ControlePrincipal() {
 		sessionManager = new SessionManager();
 		banco = new BancoDeUsuarios(sessionManager.getUserList());
+		mp = new PlayerAdmin(sessionManager.getCurrentPlaylist());
+		telaPrincipal = new TelaPrincipal(this);
 	}
 	
 	public void start() {
-	
+		// login aqui
+		telaPrincipal.start();
 	}	
 	
 	public BancoDeUsuarios getBanco() {
@@ -29,8 +31,7 @@ public class ControlePrincipal {
 	}
 	
 	public void tocarMusicaSelecionada(int index) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub	
 	}
 
 	public void adicionarMusica(int index) {

@@ -3,23 +3,26 @@ package musicplayer.visao;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 import javax.swing.*;
 
 import musicplayer.controle.ControlePrincipal;
 
 @SuppressWarnings("serial")
-public class TelaPrincipal extends JFrame implements ActionListener {
+public class TelaPrincipal extends JFrame implements ActionListener, KeyListener {
 	
 	private ControlePrincipal controle;
 	
-	private PainelMusicas musicasPlAtual = new PainelMusicas(new ControlePrincipal(), null, 250, 400, 625, 75);
-	private PainelMusicas todasAsMusicas = new PainelMusicas(new ControlePrincipal(), null, 550, 150, 25, 325);
-	private PainelPlaylists playlists = new PainelPlaylists(new ControlePrincipal(), null, 250, 175, 325, 75);
+	private PainelMusicas musicasPlAtual;
+	private PainelMusicas todasAsMusicas;
+	private PainelPlaylists playlists;
 	private JLabel nome_usuario = new JLabel("Nome Usuário");
 	private JLabel isVip = new JLabel("Vip");
+	private JLabel nome_pl = new JLabel("Nome Playlist");
+	private JLabel todas = new JLabel("Todas as músicas");
+	private JLabel play = new JLabel("Playlists");
 	private JMenuBar menuBar = new JMenuBar();
 	private JMenu reproducaoMenu = new JMenu("Reprodução");
 	private JMenu userMenu = new JMenu("Usuários");
@@ -40,7 +43,13 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	private JTextField filtrarMusicas = new JTextField();
 	private JTextField filtrarPlaylists = new JTextField();
 	private JTextField filtrarTodasMusicas = new JTextField();
-	
+
+	public TelaPrincipal(ControlePrincipal controlePrincipal) {
+		controle = controlePrincipal;
+		musicasPlAtual = new PainelMusicas(controle, null, 250, 400, 625, 75);
+		todasAsMusicas = new PainelMusicas(controle, null, 550, 150, 25, 325);
+		playlists = new PainelPlaylists(controle, null, 250, 175, 325, 75);
+	}
 
 	public void setNome_usuario(JLabel nome_usuario) {
 		this.nome_usuario = nome_usuario;
@@ -62,8 +71,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		this.playlists = playlists;
 	}
 
-	public void iniciar(ControlePrincipal controle) {
-		this.controle = controle;
+	public void start() {
 		this.setJMenuBar(menuBar);
 		this.setLayout(null);
 		
@@ -73,43 +81,24 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		isVip.setBounds(25,25,250,50);
 		isVip.setFont(new Font("Dialog", Font.PLAIN, 14));
 		
-		JLabel nome_pl = new JLabel("Nome Playlist");
 		nome_pl.setBounds(625,0,250,50); 
 		nome_pl.setFont(new Font("Dialog", Font.PLAIN, 18));
 		
 		filtrarMusicas.setBounds(625, 50, 250, 25);
-		filtrarMusicas.addKeyListener(new KeyAdapter() {
-			public void keyPressed(KeyEvent evt) {
-				JOptionPane.showConfirmDialog(null, "Teste");
-				//Alguma função com filtrarMusicas.getText() como argumento
-			}
-		});
+		filtrarMusicas.addKeyListener(this);
 		
-		JLabel todas = new JLabel("Todas as músicas");
- 		todas.setBounds(25,250,250,50); 
+		todas.setBounds(25,250,250,50); 
  		todas.setFont(new Font("Dialog", Font.PLAIN, 18));
  		
  		filtrarTodasMusicas.setBounds(25, 300, 550, 25);
- 		filtrarTodasMusicas.addKeyListener(new KeyAdapter() {
-			public void keyPressed(KeyEvent evt) {
-				JOptionPane.showConfirmDialog(null, "Teste");
-				//Alguma função com filtrarMusicas.getText() como argumento
-			}
-		});
+ 		filtrarTodasMusicas.addKeyListener(this);
 		
-		JLabel play = new JLabel("Playlists");
  		play.setBounds(325,0,250,50); 
  		play.setFont(new Font("Dialog", Font.PLAIN, 18));
  		
  		filtrarPlaylists.setBounds(325, 50, 250, 25);
- 		filtrarPlaylists.addKeyListener(new KeyAdapter() {
-			public void keyPressed(KeyEvent evt) {
-				JOptionPane.showConfirmDialog(null, "Teste");
-				//Alguma função com filtrarMusicas.getText() como argumento
-			}
-		});
+ 		filtrarPlaylists.addKeyListener(this);
  		
-		
  		b1.setBounds(25, 500, 90, 25);
  		b2.setBounds(270, 500, 90, 25);
  		b3.setBounds(360, 490, 90, 40);
@@ -164,6 +153,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setSize(900, 600);
+		this.setResizable(false);
 		this.setTitle("Music Player");
 		this.setVisible(true);
 	}
@@ -214,9 +204,26 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 			controle.adicionarPlaylist(0);;
 		}
 	}
-	
-	public static void main(String[] args) {
-		TelaPrincipal tp = new TelaPrincipal();
-		tp.iniciar(new ControlePrincipal());
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		if (e.getSource() == filtrarTodasMusicas) {
+			JOptionPane.showConfirmDialog(null, "Teste");
+			//Alguma função com filtrarTodasMusicas.getText() como argumento
+		} else if (e.getSource() == filtrarMusicas) {
+			//Alguma função com filtrarMusicas.getText() como argumento
+		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }
