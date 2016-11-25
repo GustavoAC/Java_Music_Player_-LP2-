@@ -3,6 +3,7 @@ package musicplayer.modelo.filemanagement;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import musicplayer.modelo.player.Musica;
 import musicplayer.modelo.users.Usuario;
 import musicplayer.modelo.users.UsuarioVip;
 import musicplayer.modelo.users.UsuarioComum;
@@ -65,6 +66,23 @@ public class UserReader {
 	}
 	
 	public void removeUsuario(Usuario user) {
-		// bla
+		if (users.contains(user)) {
+			try {
+				users.remove(user);
+				ArrayList<String> temp = new ArrayList<String>();
+				for (Usuario u : users) {
+					if (u instanceof UsuarioVip)
+						temp.add("VIP");
+					else
+						temp.add("Not VIP");
+					temp.add(String.valueOf(u.getId()));
+					temp.add(u.getNome());
+					temp.add(u.getSenha());
+				}
+				fm.write("./usuarios.dat", temp, false);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }

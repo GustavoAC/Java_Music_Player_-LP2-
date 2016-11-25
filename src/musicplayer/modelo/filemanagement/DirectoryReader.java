@@ -39,8 +39,8 @@ public class DirectoryReader {
 	public void removeDirectory(String path) {
 		if (directories.contains(path)) {
 			try {
-				fm.write("./diretorios.dat", directories, false);
 				directories.remove(path);
+				fm.write("./diretorios.dat", directories, false);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
