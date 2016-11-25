@@ -70,4 +70,10 @@ public class PlaylistReader {
 			}
 		}
 	}
+
+	public ArrayList<Playlist> getPlaylists() {
+		return playlists;
+	}
+	
+	
 }

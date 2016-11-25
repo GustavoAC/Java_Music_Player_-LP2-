@@ -68,5 +68,10 @@ public class MusicReader {
 			}
 		}
 	}
+
+	public ArrayList<Musica> getPlaylist() {
+		return playlist;
+	}
+	
 	
 }

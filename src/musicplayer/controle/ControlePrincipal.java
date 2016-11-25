@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import musicplayer.modelo.users.BancoDeUsuarios;
 import musicplayer.modelo.player.MusicPlayer;
+import musicplayer.controle.SessionManager;
 import musicplayer.visao.TelaPrincipal;
 
 public class ControlePrincipal {
@@ -94,7 +95,10 @@ public class ControlePrincipal {
 	// Teste Visao
 	public static void main(String[] args) {
 		ControlePrincipal cp = new ControlePrincipal();
-		TelaPrincipal tp = new TelaPrincipal(cp);
+		SessionManager sm = new SessionManager();
+		TelaPrincipal tp = new TelaPrincipal();
+		sm.inicializar(tp);
+		tp.iniciar(cp);
 		
 	}
 

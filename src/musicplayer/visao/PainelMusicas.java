@@ -25,7 +25,7 @@ public class PainelMusicas extends JPanel {
 		if (pl != null) {	
 			ArrayList<Musica> musicas = pl.getMusicas();
 			for (Musica musica : musicas) {
-				model.addElement(musica.getPath());
+				model.add(model.getSize(), musica.getFilename());
 			}
 		}
 		

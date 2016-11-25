@@ -44,7 +44,21 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	private JTextField filtrarPlaylists = new JTextField();
 	private JTextField filtrarTodasMusicas = new JTextField();
 	
-	public TelaPrincipal(ControlePrincipal controle) {
+	
+
+	public void setMusicasPlAtual(PainelMusicas musicasPlAtual) {
+		this.musicasPlAtual = musicasPlAtual;
+	}
+
+	public void setTodasAsMusicas(PainelMusicas todasAsMusicas) {
+		this.todasAsMusicas = todasAsMusicas;
+	}
+
+	public void setPlaylists(PainelPlaylists playlists) {
+		this.playlists = playlists;
+	}
+
+	public void iniciar(ControlePrincipal controle) {
 		this.controle = controle;
 		this.setJMenuBar(menuBar);
 		this.setLayout(null);
@@ -61,13 +75,6 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 			}
 		});
 		
-		Musica m1 = new Musica("Musica 1", "120");
-		Musica m2 = new Musica("Musica 2", "120");
-		Playlist pl = new Playlist();
-		pl.addMusic(m1);
-		pl.addMusic(m2);
-		musicasPlAtual = new PainelMusicas(new ControlePrincipal(), pl, 250, 400, 625, 75);
-		
 		JLabel todas = new JLabel("Todas as músicas");
  		todas.setBounds(25,250,250,50); 
  		todas.setFont(new Font("Dialog", Font.PLAIN, 18));
@@ -79,14 +86,6 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 				//Alguma função com filtrarMusicas.getText() como argumento
 			}
 		});
- 		
-		Musica m3 = new Musica("Musica 1", "120");
-		Musica m4 = new Musica("Musica 2", "120");
-		Playlist pll = new Playlist();
-		pll.addMusic(m3);
-		pll.addMusic(m4);
-		todasAsMusicas = new PainelMusicas(new ControlePrincipal(), pll, 550, 150, 25, 325);
-		
 		
 		JLabel play = new JLabel("Playlists");
  		play.setBounds(325,0,250,50); 
@@ -100,13 +99,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 			}
 		});
  		
-		ArrayList<Playlist> array = new ArrayList<Playlist>();
-		Playlist pl1 = new Playlist();
-		Playlist pl2 = new Playlist();
-		array.add(pl1);
-		array.add(pl2);
-		playlists = new PainelPlaylists(new ControlePrincipal(), array, 250, 175, 325, 75);
- 		
+		
  		b1.setBounds(25, 500, 90, 25);
  		b2.setBounds(270, 500, 90, 25);
  		b3.setBounds(360, 490, 90, 40);
@@ -211,6 +204,7 @@ public class TelaPrincipal extends JFrame implements ActionListener {
 	}
 	
 	public static void main(String[] args) {
-		TelaPrincipal tp = new TelaPrincipal(new ControlePrincipal());
+		TelaPrincipal tp = new TelaPrincipal();
+		tp.iniciar(new ControlePrincipal());
 	}
 }
