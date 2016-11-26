@@ -39,6 +39,7 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 	private JButton b1 = new JButton("+ Pasta");
 	private JButton b2 = new JButton("Prev");
 	private JButton b3 = new JButton("Play");
+	private JButton bs = new JButton("Stop");
 	private JButton b4 = new JButton("Pause");
 	private JButton b5 = new JButton("Post");
 	private JButton b6 = new JButton("+ Playlist");
@@ -81,15 +82,17 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
  		filtrarPlaylists.addKeyListener(this);
  		
  		b1.setBounds(25, 500, 90, 25);
- 		b2.setBounds(270, 500, 90, 25);
- 		b3.setBounds(360, 490, 90, 40);
- 		b4.setBounds(450, 490, 90, 40);
- 		b5.setBounds(540, 500, 90, 25);
+ 		b2.setBounds(240, 500, 90, 25);
+ 		b3.setBounds(330, 490, 90, 40);
+ 		bs.setBounds(420, 490, 60, 40);
+ 		b4.setBounds(480, 490, 90, 40);
+ 		b5.setBounds(570, 500, 90, 25);
  		b6.setBounds(785, 500, 90, 25);
  		
  		this.add(b1);
  		this.add(b2);
  		this.add(b3);
+ 		this.add(bs);
  		this.add(b4);
  		this.add(b5);
  		this.add(b6);
@@ -120,6 +123,7 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 		b1.addActionListener(this);
 		b2.addActionListener(this);
 		b3.addActionListener(this);
+		bs.addActionListener(this);
 		b4.addActionListener(this);
 		b5.addActionListener(this);
 		b6.addActionListener(this);
@@ -207,6 +211,9 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 			controle.pause();
 		} else if (e.getSource() == b5) {
 			controle.passarMusica();
+		} else if (e.getSource() == bs) {
+			JOptionPane.showConfirmDialog(null, "Stop");
+			controle.stop();
 		} else if (e.getSource() == b6) {
 			JOptionPane.showConfirmDialog(null, "Nova playlist adicionada");
 			controle.adicionarPlaylist(0);;
