@@ -37,7 +37,7 @@ public class BancoDeUsuarios {
 		return arvoreDeUsuarios.remove(id);
 	}
 	
-	public No buscar (int id) {
+	public Usuario buscar (int id) {
 		return arvoreDeUsuarios.busca(id);
 	}
 	

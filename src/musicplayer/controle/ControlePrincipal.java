@@ -1,6 +1,7 @@
 package musicplayer.controle;
 
 import musicplayer.modelo.users.BancoDeUsuarios;
+import musicplayer.modelo.users.Usuario;
 import musicplayer.modelo.player.PlayerAdmin;
 import musicplayer.modelo.player.Musica;
 
@@ -16,7 +17,7 @@ public class ControlePrincipal {
 	private BancoDeUsuarios banco;
 	private PlayerAdmin playerAdmin;
 	private TelaPrincipal telaPrincipal;
-	
+	private Usuario currentUser;
 	
 	// Parte gráfica
 	
@@ -27,10 +28,26 @@ public class ControlePrincipal {
 		telaPrincipal = new TelaPrincipal(this);
 	}
 	
-	public void start() {
-		// login aqui
-		telaPrincipal.start();
-	}	
+	public void showLogin() {
+		telaPrincipal.showLogin();
+	}
+	
+	public void login(Usuario read) {
+		if (read == null)
+			showLogin();
+		else {
+			Usuario realUser = banco.buscar(read.getId());
+			if (realUser != null &&
+				read.getNome().equals(realUser.getNome()) &&
+				read.getSenha().equals(realUser.getSenha())) {
+				currentUser = realUser;
+				telaPrincipal.loadPlaylists(currentUser);
+				telaPrincipal.start();
+			} else {
+				showLogin();
+			}
+		}
+	}
 	
 	public BancoDeUsuarios getBanco() {
 		return banco;
@@ -84,6 +101,10 @@ public class ControlePrincipal {
 		playerAdmin.pause();
 	}
 	
+	public void stop() {
+		playerAdmin.stop();
+	}
+	
 	public void passarMusica() {
 		playerAdmin.skip();
 	}
@@ -105,7 +126,7 @@ public class ControlePrincipal {
 	// Teste Visao
 	public static void main(String[] args) {
 		ControlePrincipal cp = new ControlePrincipal();
-		cp.start();
+		cp.showLogin();
 	}
 
 	public void initializePanels(PainelMusicas todasAsMusicas, PainelMusicas musicasPlAtual) {

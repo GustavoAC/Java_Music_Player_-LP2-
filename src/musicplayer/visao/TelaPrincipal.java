@@ -11,6 +11,8 @@ import javax.swing.*;
 
 import musicplayer.controle.ControlePrincipal;
 import musicplayer.modelo.player.Musica;
+import musicplayer.modelo.users.Usuario;
+import musicplayer.modelo.users.UsuarioVip;
 
 @SuppressWarnings("serial")
 public class TelaPrincipal extends JFrame implements ActionListener, KeyListener {
@@ -20,6 +22,8 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 	private PainelMusicas musicasPlAtual;
 	private PainelMusicas todasAsMusicas;
 	private PainelPlaylists playlists;
+	private TelaLogin telaLogin;
+	
 	private JLabel nome_usuario = new JLabel("Nome Usuário");
 	private JLabel isVip = new JLabel("Vip");
 	private JLabel nome_pl = new JLabel("Nome Playlist");
@@ -49,9 +53,10 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 
 	public TelaPrincipal(ControlePrincipal controlePrincipal) {
 		controle = controlePrincipal;
+		
 		musicasPlAtual = new PainelMusicas(controle, 625, 75, 250, 400);
 		todasAsMusicas = new PainelMusicas(controle, 25, 325, 550, 150);
-		playlists = new PainelPlaylists(controle, null, 325, 75, 250, 175);
+		playlists = new PainelPlaylists(controle, 325, 75, 250, 175);
 		controle.initializePanels(todasAsMusicas, musicasPlAtual);
 		
 		this.setJMenuBar(menuBar);
@@ -212,14 +217,32 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 		} else if (e.getSource() == b5) {
 			controle.passarMusica();
 		} else if (e.getSource() == bs) {
-			JOptionPane.showConfirmDialog(null, "Stop");
 			controle.stop();
 		} else if (e.getSource() == b6) {
 			JOptionPane.showConfirmDialog(null, "Nova playlist adicionada");
 			controle.adicionarPlaylist(0);;
 		}
 	}
+	
+	public void showLogin() {
+		telaLogin = new TelaLogin("Login", new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Usuario user = telaLogin.createUser(false);
+				telaLogin.close();
+				controle.login(user);
+			}
+		});
+	}
 
+	public Usuario login() {
+		if (telaLogin != null)
+			return telaLogin.createUser(false);
+		else
+			return null;
+	}
+	
+	
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getSource() == filtrarTodasMusicas) {
@@ -240,5 +263,13 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public void loadPlaylists(Usuario currentUser) {
+		if (currentUser instanceof UsuarioVip) {
+			playlists.loadPlaylists(((UsuarioVip) currentUser).getPlaylists());
+		} else {
+			playlists.displayDefaultMessage();
+		}
 	}
 }

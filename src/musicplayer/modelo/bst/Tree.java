@@ -158,9 +158,12 @@ public class Tree {
 	 * A função retorna o No em questão, se ele for encontrado
 	 * Ou um No vazio, caso contrário  
 	 */
-	public No busca(int id) {
+	public Usuario busca(int id) {
+		if (root == null)
+			return null;
+		
 		if (root.getUsuario().getId() == id) { 
-			return root;
+			return root.getUsuario();
 		}
 		
 		// Se nao encontrar, retorna no nulo

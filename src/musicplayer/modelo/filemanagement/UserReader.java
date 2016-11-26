@@ -47,6 +47,11 @@ public class UserReader {
 						temp.get(i+3)));
 			}
 		}
+		
+		// Se vazio, adiciona o admin
+		if (users.isEmpty()) {
+			addUsuario(new UsuarioVip(0, "admin", "admin"));
+		}
 	}
 	
 	public void addUsuario(Usuario user) {

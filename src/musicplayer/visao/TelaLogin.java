@@ -1,24 +1,29 @@
 package musicplayer.visao;
 
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import musicplayer.modelo.users.Usuario;
+import musicplayer.modelo.users.UsuarioComum;
+import musicplayer.modelo.users.UsuarioVip;
 
-public class TelaLogin extends JFrame implements ActionListener {
+
+@SuppressWarnings("serial")
+public class TelaLogin extends JFrame {
 	private JLabel nome = new JLabel ("Nome:  ");
 	private JLabel id = new JLabel   ("ID:    ");
 	private JLabel senha = new JLabel("Senha: ");
-	JTextField tnome = new JTextField();
-	JTextField tid = new JTextField();
-	JTextField tsenha = new JTextField();
-	JButton b1 = new JButton("Submeter");
+	private JTextField tnome = new JTextField();
+	private JTextField tid = new JTextField();
+	private JPasswordField tsenha = new JPasswordField();
+	private JButton b1 = new JButton("Submeter");
 	
-	public TelaLogin () {
+	public TelaLogin (String title, ActionListener listener) {
 		this.setLayout(null);
 		
 		nome.setBounds(10,10,100,30);
@@ -37,26 +42,38 @@ public class TelaLogin extends JFrame implements ActionListener {
 		this.add(tsenha);
 		this.add(b1);
 		
-		b1.addActionListener(this);
+		b1.addActionListener(listener);
 		
 		this.setSize(280,200);
-		this.setTitle("Login");
 		this.setResizable(false);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setTitle(title);
+		this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		this.setVisible(true);
-		
 	}
 	
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == b1) {
-			
+	public Usuario createUser(boolean isVip) {
+		int userId;
+		try {
+			userId = Integer.parseInt(tid.getText());
+		} catch (Exception e) {
+			return null;
+		}
+		
+		if (isVip)
+			return new UsuarioVip(userId, tnome.getText(), tsenha.getText());
+		else
+			return new UsuarioComum(userId, tnome.getText(), tsenha.getText());
+	}
+	
+	public int getUserId() {
+		try {
+			return Integer.parseInt(tid.getText());
+		} catch (Exception e) {
+			return 0;
 		}
 	}
 	
-	public static void main(String[] args) {
-		
-		TelaLogin mt = new TelaLogin();
-	
+	public void close() {
+		this.dispose();
 	}
 }
