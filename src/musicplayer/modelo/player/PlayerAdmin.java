@@ -45,10 +45,11 @@ public class PlayerAdmin {
 	}
 	
 	public void playCurrentMusic() {
-		activelyStopped = false;
+		stop();
 		Musica mus = currPlaylist.getMusic(currentMusic);
 		if (mus == null) return;
-		
+
+		activelyStopped = false;
 		player.prepare(mus);
 		player.play();
 	}
@@ -74,21 +75,5 @@ public class PlayerAdmin {
 	public void stop() {
 		activelyStopped = true;
 		player.stop();
-	}
-	// teste
-	public static void main(String[] args) throws InterruptedException {
-		Playlist pl = new Playlist();
-		pl.addMusic(new Musica("test.mp3", "123"));
-		PlayerAdmin pa = new PlayerAdmin(pl);
-		pa.playCurrentMusic();
-				
-		for (int i = 0; i < 20; ++i) {
-			Thread.sleep(2000);
-			pa.pause();
-			Thread.sleep(2000);
-			pa.unpause();
-		}
-		
-		pa.stop();
 	}
 }

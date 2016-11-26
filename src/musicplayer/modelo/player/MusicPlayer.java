@@ -37,7 +37,8 @@ public class MusicPlayer implements Runnable {
 	}
 	
 	public void stop() {
-		advPlayer.close();
+		if (advPlayer != null)
+			advPlayer.close();
 	}
 	
 	public void play() {
@@ -45,8 +46,10 @@ public class MusicPlayer implements Runnable {
 			activeThread.resume();
 			stopped = true;
 		} else {
-			if (activeThread != null && activeThread.isAlive())
-				activeThread.interrupt();		
+			if (activeThread != null && activeThread.isAlive()) {
+				advPlayer.stop();
+				activeThread.interrupt();
+			}
 			activeThread = new Thread(this);
 			activeThread.setDaemon(true);
 			activeThread.start();

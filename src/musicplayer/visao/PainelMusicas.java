@@ -20,32 +20,21 @@ public class PainelMusicas extends JPanel {
 	private JList<String> list;
 	private ArrayList<Musica> musicas;
 	private JScrollPane pane;
+	private MouseListener listener;
 	
-	public PainelMusicas(ControlePrincipal controle, int x, int y, int width, int height) {
+	public PainelMusicas(int x, int y, int width, int height, MouseListener listener) {
 		super(new BorderLayout());
 		this.setBounds(x, y, width, height);
 		
 		model = new DefaultListModel<String>();
 		list = new JList<String>(model);
 		pane = new JScrollPane(list);
+		this.listener = listener;
 		
 		this.add(pane);
 		this.setVisible(true);
 
-		MouseListener mouseListener = new MouseAdapter() {
-			public void mouseClicked(MouseEvent mouseEvent) {
-				JList<String> theList = (JList<String>) mouseEvent.getSource();
-				if (mouseEvent.getClickCount() == 2) {
-					int index = theList.locationToIndex(mouseEvent.getPoint());
-					if (index >= 0) {
-						String o = theList.getSelectedValue().toString();
-						JOptionPane.showConfirmDialog(null, "Tocando música: " +  o);
-						controle.play(index);
-					}
-				}
-			}
-		};
-		list.addMouseListener(mouseListener);	
+		list.addMouseListener(listener);	
 	}
 	
 	public int getSelectedIndex() {
@@ -62,7 +51,12 @@ public class PainelMusicas extends JPanel {
 		
 		list = new JList<String>(model);
 		pane = new JScrollPane(list);
+		list.addMouseListener(listener);
 		this.add(pane);
+	}
+	
+	public void addMusic(String name) {
+		model.addElement(name);
 	}
 
 }

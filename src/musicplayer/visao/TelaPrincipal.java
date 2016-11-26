@@ -5,6 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.*;
@@ -54,8 +57,35 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 	public TelaPrincipal(ControlePrincipal controlePrincipal) {
 		controle = controlePrincipal;
 		
-		musicasPlAtual = new PainelMusicas(controle, 625, 75, 250, 400);
-		todasAsMusicas = new PainelMusicas(controle, 25, 325, 550, 150);
+		MouseListener todasListener = new MouseAdapter() {
+			public void mouseClicked(MouseEvent mouseEvent) {
+				JList<String> theList = (JList<String>) mouseEvent.getSource();
+				if (mouseEvent.getClickCount() == 2) {
+					int index = theList.locationToIndex(mouseEvent.getPoint());
+					if (index >= 0) {
+						String str = theList.getSelectedValue().toString();
+						musicasPlAtual.addMusic(str);
+						controle.adicionarMusica(index);
+					}
+				}
+			}
+		};
+		
+		MouseListener atualListener = new MouseAdapter() {
+			public void mouseClicked(MouseEvent mouseEvent) {
+				JList<String> theList = (JList<String>) mouseEvent.getSource();
+				if (mouseEvent.getClickCount() == 2) {
+					int index = theList.locationToIndex(mouseEvent.getPoint());
+					if (index >= 0) {
+						String str = theList.getSelectedValue().toString();
+						controle.play(index);
+					}
+				}
+			}
+		};
+		
+		musicasPlAtual = new PainelMusicas(625, 75, 250, 400, atualListener);
+		todasAsMusicas = new PainelMusicas(25, 325, 550, 150, todasListener);
 		playlists = new PainelPlaylists(controle, 325, 75, 250, 175);
 		controle.initializePanels(todasAsMusicas, musicasPlAtual);
 		
@@ -202,7 +232,6 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 			jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			jfc.showOpenDialog(null);
 			if (jfc.getSelectedFile() != null) {
-				System.out.println("entrei");
 				ArrayList<Musica> musicas = controle.adicionarPasta(jfc.getSelectedFile().getAbsolutePath());
 				todasAsMusicas.list(musicas);
 			}

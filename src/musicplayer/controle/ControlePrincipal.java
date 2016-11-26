@@ -54,7 +54,9 @@ public class ControlePrincipal {
 	}
 
 	public void adicionarMusica(int index) {
-		
+		Musica mus = sessionManager.getDirReader().getValidFiles().get(index);
+		playerAdmin.addMusicToPlaylist(mus);
+		sessionManager.getMusicReader().addMusic(mus);
 	}
 	
 	public void tocarPlaylistSelecionada(int index) {

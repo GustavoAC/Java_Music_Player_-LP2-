@@ -41,6 +41,7 @@ public class MusicReader {
 			temp.add(music.getPath());
 			temp.add(music.getFilename());
 			try {
+				System.out.println("Escrevendo musica");
 				fm.write("./playlist_padrao.dat", temp, true);
 				playlist.addMusic(music);
 			} catch (IOException e) {
