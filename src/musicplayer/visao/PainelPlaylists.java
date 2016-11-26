@@ -31,7 +31,7 @@ public class PainelPlaylists extends JPanel  {
 		
 		if (playlists != null) {
 			for (Playlist pl : playlists) {
-				model.add(model.getSize(), pl.getNome());
+				model.addElement(pl.getNome());
 			}
 		}
 

@@ -2,7 +2,13 @@ package musicplayer.controle;
 
 import musicplayer.modelo.users.BancoDeUsuarios;
 import musicplayer.modelo.player.PlayerAdmin;
+import musicplayer.modelo.player.Musica;
+
+import java.util.ArrayList;
+
 import musicplayer.controle.SessionManager;
+import musicplayer.visao.PainelMusicas;
+import musicplayer.visao.PainelPlaylists;
 import musicplayer.visao.TelaPrincipal;
 
 public class ControlePrincipal {
@@ -28,10 +34,6 @@ public class ControlePrincipal {
 	
 	public BancoDeUsuarios getBanco() {
 		return banco;
-	}
-	
-	public void tocarMusicaSelecionada(int index) {
-		// TODO Auto-generated method stub	
 	}
 
 	public void adicionarMusica(int index) {
@@ -64,15 +66,17 @@ public class ControlePrincipal {
 		// TODO Auto-generated method stub
 	}
 	
-	public void adicionarPasta(int index) {
-		// TODO Auto-generated method stub
+	public ArrayList<Musica> adicionarPasta(String path) {
+		sessionManager.getDirReader().addDirectory(path);
+		return sessionManager.getDirReader().getValidFiles();
 	}
 	
 	public void voltarMusica() {
 		playerAdmin.previous();
 	}
 	
-	public void play() {
+	public void play(int index) {
+		playerAdmin.setCurrentMusic(index);
 		playerAdmin.playCurrentMusic();
 	}
 	
@@ -86,7 +90,6 @@ public class ControlePrincipal {
 	
 	public void adicionarPlaylist(int index) {
 		// TODO Auto-generated method stub
-		
 	}
 	
 	/* Teste do player
@@ -103,5 +106,10 @@ public class ControlePrincipal {
 	public static void main(String[] args) {
 		ControlePrincipal cp = new ControlePrincipal();
 		cp.start();
+	}
+
+	public void initializePanels(PainelMusicas todasAsMusicas, PainelMusicas musicasPlAtual) {
+		todasAsMusicas.list(sessionManager.getDirReader().getValidFiles());
+		musicasPlAtual.list(sessionManager.getMusicReader().getPlaylist().getMusicas());
 	}
 }

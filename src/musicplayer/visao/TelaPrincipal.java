@@ -5,10 +5,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
 import musicplayer.controle.ControlePrincipal;
+import musicplayer.modelo.player.Musica;
 
 @SuppressWarnings("serial")
 public class TelaPrincipal extends JFrame implements ActionListener, KeyListener {
@@ -46,9 +48,10 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 
 	public TelaPrincipal(ControlePrincipal controlePrincipal) {
 		controle = controlePrincipal;
-		musicasPlAtual = new PainelMusicas(controle, null, 625, 75, 250, 400);
-		todasAsMusicas = new PainelMusicas(controle, null, 25, 325, 550, 150);
+		musicasPlAtual = new PainelMusicas(controle, 625, 75, 250, 400);
+		todasAsMusicas = new PainelMusicas(controle, 25, 325, 550, 150);
 		playlists = new PainelPlaylists(controle, null, 325, 75, 250, 175);
+		controle.initializePanels(todasAsMusicas, musicasPlAtual);
 		
 		this.setJMenuBar(menuBar);
 		this.setLayout(null);
@@ -163,7 +166,7 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == rItem1) {
 			JOptionPane.showConfirmDialog(null, "Tocando música selecionada");
-			controle.tocarMusicaSelecionada(0);
+			controle.play(0);
 		} else if (e.getSource() == rItem2) {
 			JOptionPane.showConfirmDialog(null, "Música adicionada");
 			controle.adicionarMusica(0);
@@ -186,12 +189,20 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 			JOptionPane.showConfirmDialog(null, "Usuario VIP registrado");
 			controle.registarUsuarioVIP(0);
 		} else if (e.getSource() == b1) {
-			JOptionPane.showConfirmDialog(null, "Nova pasta adicionada");
-			controle.adicionarPasta(0);;
+			JFileChooser jfc = new JFileChooser();
+			jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+			jfc.showOpenDialog(null);
+			if (jfc.getSelectedFile() != null) {
+				System.out.println("entrei");
+				ArrayList<Musica> musicas = controle.adicionarPasta(jfc.getSelectedFile().getAbsolutePath());
+				todasAsMusicas.list(musicas);
+			}
+			revalidate();
+			repaint();
 		} else if (e.getSource() == b2) {
 			controle.voltarMusica();
 		} else if (e.getSource() == b3) {
-			controle.play();
+			controle.play(musicasPlAtual.getSelectedIndex());
 		} else if (e.getSource() == b4) {
 			controle.pause();
 		} else if (e.getSource() == b5) {

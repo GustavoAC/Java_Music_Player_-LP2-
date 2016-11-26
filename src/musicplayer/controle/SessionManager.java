@@ -63,6 +63,7 @@ public class SessionManager {
 		return userReader;
 	}
 
+/*
 	// Fazer função para inicializar os displays da Visao
 	public void inicializar(TelaPrincipal tp, ControlePrincipal cp) {
 		iniAllMusic(tp);
@@ -71,6 +72,7 @@ public class SessionManager {
 		iniUserReader(cp);
 	}
 	
+
 	private void iniAllMusic(TelaPrincipal tp) {
 		ArrayList<Musica> m = dirReader.getValidFiles();
 		Playlist pl = new Playlist();
@@ -100,4 +102,5 @@ public class SessionManager {
 			cp.getBanco().addUsuario(usuario.getId(), usuario.getNome(), usuario.getSenha(), isVip);
 		}
 	}
+*/
 }

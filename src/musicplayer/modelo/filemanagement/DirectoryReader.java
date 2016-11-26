@@ -59,7 +59,7 @@ public class DirectoryReader {
 		ArrayList<File> files = fm.listFiles(path);
 		for (File f : files) {
 			// Se termina em mp3, adiciona a lista de musicas
-			if (f.getName().substring(f.getName().length()-4).equals(".mp3"))
+			if (f.getName().length() > 4 && f.getName().substring(f.getName().length()-4).equals(".mp3"))
 				ret.add(new Musica(f.getAbsolutePath(), f.getName()));
 		}
 		

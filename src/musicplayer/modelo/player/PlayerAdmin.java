@@ -1,18 +1,27 @@
 package musicplayer.modelo.player;
 
-import musicplayer.modelo.users.Usuario;
-import musicplayer.modelo.users.UsuarioComum;
+import javazoom.jl.player.advanced.PlaybackEvent;
+import javazoom.jl.player.advanced.PlaybackListener;
 
 public class PlayerAdmin {
 	private Playlist currPlaylist;
 	private MusicPlayer player;
 	private int currentMusic;
+	private boolean activelyStopped;
 	
 	// Nenhum construtor é permitido criar um novo usuario ou playlist
 	public PlayerAdmin(Playlist currPlaylist) {
 		this.currPlaylist = currPlaylist;
+		player = new MusicPlayer(new PlaybackListener() {
+			@Override
+			public void playbackFinished(PlaybackEvent e) {
+				if (!activelyStopped) {
+					skip();
+				}
+			}
+		});
 		currentMusic = 0;
-		player = new MusicPlayer();
+		activelyStopped = false;
 	}
 
 	public Playlist getCurrPlaylist() {
@@ -36,6 +45,7 @@ public class PlayerAdmin {
 	}
 	
 	public void playCurrentMusic() {
+		activelyStopped = false;
 		Musica mus = currPlaylist.getMusic(currentMusic);
 		if (mus == null) return;
 		
@@ -62,6 +72,7 @@ public class PlayerAdmin {
 	}
 	
 	public void stop() {
+		activelyStopped = true;
 		player.stop();
 	}
 	// teste
