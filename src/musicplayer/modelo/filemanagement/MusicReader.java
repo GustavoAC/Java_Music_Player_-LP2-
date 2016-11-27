@@ -49,6 +49,21 @@ public class MusicReader {
 		}
 	}
 	
+	public void setNewPlaylist(Playlist pl) {
+		playlist = pl;
+		ArrayList<String> temp = new ArrayList<String>();
+		for (Musica music : pl.getMusicas()) {
+			temp.add(music.getPath());
+			temp.add(music.getFilename());
+		}
+		
+		try {
+			fm.write("./playlist_padrao.dat", temp, false);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public void removeMusic(Musica music) {
 		if (playlist.contains(music)) {
 			try {
@@ -64,7 +79,7 @@ public class MusicReader {
 			}
 		}
 	}
-
+	
 	public Playlist getPlaylist() {
 		return playlist;
 	}

@@ -20,50 +20,31 @@ public class PainelPlaylists extends JPanel  {
 	private DefaultListModel<String> model;
 	private JList<String> list;
 	private JScrollPane pane;
+	private MouseListener listener;
 	
-	public PainelPlaylists(ControlePrincipal controle, int x, int y, int width, int height) {
+	public PainelPlaylists(int x, int y, int width, int height, MouseListener listener) {
 		super(new BorderLayout());
 		this.setBounds(x,y,width, height);
 		
+		this.listener = listener;
 		model = new DefaultListModel<String>();
 		list = new JList<String>(model);
 		pane = new JScrollPane(list);
 		
 		this.add(pane);
 		this.setVisible(true);
-
-		MouseListener mouseListener = new MouseAdapter() {
-			public void mouseClicked(MouseEvent mouseEvent) {
-				JList<String> theList = (JList<String>) mouseEvent.getSource();
-				if (mouseEvent.getClickCount() == 2) {
-					int index = theList.locationToIndex(mouseEvent.getPoint());
-					if (index >= 0) {
-						String o = theList.getSelectedValue().toString();
-						JOptionPane.showConfirmDialog(null, "Tocando música: " +  o);
-						controle.tocarPlaylistSelecionada(index);
-					}
-				}
-			}
-		};
-		list.addMouseListener(mouseListener);
+		list.addMouseListener(listener);
 	}
 
-	public void loadPlaylists(ArrayList<Playlist> playlists) {
+	public void list(ArrayList<Playlist> playlists) {
 		this.remove(pane);
 		model = new DefaultListModel<String>();
 		for (Playlist pl : playlists)
 			model.addElement(pl.getNome());
 		list = new JList<String>(model);
 		pane = new JScrollPane(list);
-		this.add(pane);
-	}
-
-	public void displayDefaultMessage() {
-		this.remove(pane);
-		model = new DefaultListModel<String>();
-		model.addElement("Esse usuário não tem playlists");
-		list = new JList<String>(model);
-		pane = new JScrollPane(list);
+		
+		list.addMouseListener(listener);
 		this.add(pane);
 	}
 }

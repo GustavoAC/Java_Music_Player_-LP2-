@@ -4,6 +4,7 @@ import musicplayer.modelo.users.BancoDeUsuarios;
 import musicplayer.modelo.users.Usuario;
 import musicplayer.modelo.users.UsuarioVip;
 import musicplayer.modelo.player.PlayerAdmin;
+import musicplayer.modelo.player.Playlist;
 import musicplayer.modelo.player.Musica;
 
 import java.util.ArrayList;
@@ -62,12 +63,17 @@ public class ControlePrincipal {
 
 	public void adicionarMusica(int index) {
 		Musica mus = sessionManager.getDirReader().getValidFiles().get(index);
+		// MusicReader e PlayerAdmin compartilham a mesma playlist
 		sessionManager.getMusicReader().addMusic(mus);
-		// MusicReader e PlayerAdmin compartilham o mesmo Array de músicas
 	}
 	
-	public void tocarPlaylistSelecionada(int index) {
-		// TODO Auto-generated method stub	
+	public ArrayList<Musica> tocarPlaylistSelecionada(int index) {
+		Playlist pl = new Playlist();
+		for (Musica mus : ((UsuarioVip) currentUser).getPlaylists().get(index).getMusicas())
+			pl.addMusic(mus);
+		sessionManager.getMusicReader().setNewPlaylist(pl);
+		playerAdmin.setCurrPlaylist(pl);
+		return pl.getMusicas();
 	}
 	
 	public void salvarPlaylistAtual(int index) {
@@ -75,7 +81,7 @@ public class ControlePrincipal {
 		
 	}
 	
-	public void listarUsuarios(int index) {
+	public void listarUsuarios() {
 		banco.listar();
 	}
 	
@@ -120,8 +126,18 @@ public class ControlePrincipal {
 		playerAdmin.skip();
 	}
 	
-	public void adicionarPlaylist(int index) {
-		// TODO Auto-generated method stub
+	public ArrayList<Playlist> adicionarPlaylist(String name) {
+		if (currentUser instanceof UsuarioVip) {
+			Playlist pl = new Playlist();
+			pl.setNome(name);
+			for (Musica mus : playerAdmin.getCurrPlaylist().getMusicas())
+				pl.addMusic(mus);
+			
+			((UsuarioVip) currentUser).addPlaylist(pl);
+			sessionManager.getPlayReader().addPlaylist(pl, currentUser);
+			return sessionManager.getPlayReader().getPlaylists();
+		}
+		return null;
 	}
 	
 	/* Teste do player

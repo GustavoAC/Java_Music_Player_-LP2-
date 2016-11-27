@@ -14,6 +14,7 @@ import javax.swing.*;
 
 import musicplayer.controle.ControlePrincipal;
 import musicplayer.modelo.player.Musica;
+import musicplayer.modelo.player.Playlist;
 import musicplayer.modelo.users.Usuario;
 import musicplayer.modelo.users.UsuarioVip;
 
@@ -78,8 +79,21 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 				if (mouseEvent.getClickCount() == 2) {
 					int index = theList.locationToIndex(mouseEvent.getPoint());
 					if (index >= 0) {
-						String str = theList.getSelectedValue().toString();
 						controle.play(index);
+					}
+				}
+			}
+		};
+		
+		MouseListener playlistListener = new MouseAdapter() {
+			public void mouseClicked(MouseEvent mouseEvent) {
+				JList<String> theList = (JList<String>) mouseEvent.getSource();
+				if (mouseEvent.getClickCount() == 2) {
+					int index = theList.locationToIndex(mouseEvent.getPoint());
+					if (index >= 0) {
+						musicasPlAtual.list(controle.tocarPlaylistSelecionada(index));
+						revalidate();
+						repaint();
 					}
 				}
 			}
@@ -87,7 +101,7 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 		
 		musicasPlAtual = new PainelMusicas(625, 75, 250, 400, atualListener);
 		todasAsMusicas = new PainelMusicas(25, 325, 550, 150, todasListener);
-		playlists = new PainelPlaylists(controle, 325, 75, 250, 175);
+		playlists = new PainelPlaylists(325, 75, 250, 175, playlistListener);
 		controle.initializePanels(todasAsMusicas, musicasPlAtual);
 		
 		this.setJMenuBar(menuBar);
@@ -232,8 +246,7 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 			JOptionPane.showConfirmDialog(null, "Playlist Atual salva");
 			controle.salvarPlaylistAtual(0);
 		} else if (e.getSource() == uItem1) {
-			JOptionPane.showConfirmDialog(null, "Usuarios listados");
-			controle.listarUsuarios(0);
+			controle.listarUsuarios();
 		} else if (e.getSource() == uItem2) {
 			JOptionPane.showConfirmDialog(null, "Login feito com sucesso");
 			controle.logar(0);
@@ -264,8 +277,15 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 		} else if (e.getSource() == bs) {
 			controle.stop();
 		} else if (e.getSource() == b6) {
-			JOptionPane.showConfirmDialog(null, "Nova playlist adicionada");
-			controle.adicionarPlaylist(0);;
+			String name = JOptionPane.showInputDialog("Nome da playlist");
+			ArrayList<Playlist> apl = controle.adicionarPlaylist(name);
+			if (apl != null) {
+				playlists.list(apl);
+				revalidate();
+				repaint();
+			} else {
+				JOptionPane.showMessageDialog(null, "Somente usuários VIP podem criar playlists.");
+			}
 		}
 	}
 	
@@ -312,9 +332,7 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 
 	public void loadPlaylists(Usuario currentUser) {
 		if (currentUser instanceof UsuarioVip) {
-			playlists.loadPlaylists(((UsuarioVip) currentUser).getPlaylists());
-		} else {
-			playlists.displayDefaultMessage();
+			playlists.list(((UsuarioVip) currentUser).getPlaylists());
 		}
 	}
 }

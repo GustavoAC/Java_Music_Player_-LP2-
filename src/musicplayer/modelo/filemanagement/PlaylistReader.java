@@ -66,6 +66,8 @@ public class PlaylistReader {
 			
 			try {
 				fm.write("./playlists/" + String.format("%03d", numPlaylists++), temp, false);
+				playlists.add(pl);
+				ownerData.add(owner.getNome() + " - " + owner.getId());
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
