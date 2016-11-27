@@ -40,10 +40,5 @@ public class BancoDeUsuarios {
 	public Usuario buscar (int id) {
 		return arvoreDeUsuarios.busca(id);
 	}
-
-	public void listar() {
-		System.out.println("== Lista de usuarios: ==");
-		arvoreDeUsuarios.percorrerInOrdem();
-	}
 	
 }

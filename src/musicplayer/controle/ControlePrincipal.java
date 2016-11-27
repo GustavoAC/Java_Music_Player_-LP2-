@@ -2,11 +2,21 @@ package musicplayer.controle;
 
 import musicplayer.modelo.users.BancoDeUsuarios;
 import musicplayer.modelo.users.Usuario;
+import musicplayer.modelo.users.UsuarioComum;
 import musicplayer.modelo.users.UsuarioVip;
 import musicplayer.modelo.player.PlayerAdmin;
 import musicplayer.modelo.player.Musica;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 
 import musicplayer.controle.SessionManager;
 import musicplayer.visao.PainelMusicas;
@@ -76,20 +86,105 @@ public class ControlePrincipal {
 	}
 	
 	public void listarUsuarios(int index) {
-		banco.listar();
+		// TODO Auto-generated method stub
 	}
 	
 	public void logar(int index) {
 		// TODO Auto-generated method stub
 	}
 	
-	public void registarUsuarioComum(int index) {
-		// TODO Auto-generated method stub
+	public void registarUsuarioComum() {
+		JFrame frame = new JFrame();
+		JLabel nome = new JLabel ("Nome:  ");
+		JLabel id = new JLabel   ("ID:    ");
+		JLabel senha = new JLabel("Senha: ");
+		JTextField tnome = new JTextField();
+		JTextField tid = new JTextField();
+		JPasswordField tsenha = new JPasswordField();
+		JButton b1 = new JButton("Submeter");
 		
+		frame.setLayout(null);
+		
+		nome.setBounds(10,10,100,30);
+		tnome.setBounds(55,10,200,25);
+		id.setBounds(10,40,100,30);
+		tid.setBounds(55,40,200,25);
+		senha.setBounds(10,70,100,30);
+		tsenha.setBounds(55,70,200,25);
+		b1.setBounds(90,110,100,30);
+		
+		frame.add(nome);
+		frame.add(tnome);
+		frame.add(id);
+		frame.add(tid);
+		frame.add(senha);
+		frame.add(tsenha);
+		frame.add(b1);
+		
+		b1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				UsuarioComum u = new UsuarioComum(Integer.parseInt(tid.getText()), tnome.getText(), tsenha.getText());
+				boolean r = sessionManager.getUserReader().addUsuario(u);
+				if (r) {
+					JOptionPane.showConfirmDialog(null, "Usuario Comum registrado");
+				} else {
+					JOptionPane.showConfirmDialog(null, "Usuario Comum não registrado");
+				}
+			}
+		});
+		
+		frame.setSize(280,200);
+		frame.setResizable(false);
+		frame.setTitle("Cadastro Usuario Comum");
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setVisible(true);
 	}
 	
-	public void registarUsuarioVIP(int index) {
-		// TODO Auto-generated method stub
+	public void registarUsuarioVIP() {
+		JFrame frame = new JFrame();
+		JLabel nome = new JLabel ("Nome:  ");
+		JLabel id = new JLabel   ("ID:    ");
+		JLabel senha = new JLabel("Senha: ");
+		JTextField tnome = new JTextField();
+		JTextField tid = new JTextField();
+		JPasswordField tsenha = new JPasswordField();
+		JButton b1 = new JButton("Submeter");
+		
+		frame.setLayout(null);
+		
+		nome.setBounds(10,10,100,30);
+		tnome.setBounds(55,10,200,25);
+		id.setBounds(10,40,100,30);
+		tid.setBounds(55,40,200,25);
+		senha.setBounds(10,70,100,30);
+		tsenha.setBounds(55,70,200,25);
+		b1.setBounds(90,110,100,30);
+		
+		frame.add(nome);
+		frame.add(tnome);
+		frame.add(id);
+		frame.add(tid);
+		frame.add(senha);
+		frame.add(tsenha);
+		frame.add(b1);
+		
+		b1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				UsuarioVip u = new UsuarioVip(Integer.parseInt(tid.getText()), tnome.getText(), tsenha.getText());
+				boolean r = sessionManager.getUserReader().addUsuario(u);
+				if (r) {
+					JOptionPane.showConfirmDialog(null, "Usuario Vip registrado");
+				} else {
+					JOptionPane.showConfirmDialog(null, "Usuario Vip não registrado");
+				}
+			}
+		});
+		
+		frame.setSize(280,200);
+		frame.setResizable(false);
+		frame.setTitle("Cadastro Usuario Vip");
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setVisible(true);
 	}
 	
 	public ArrayList<Musica> adicionarPasta(String path) {

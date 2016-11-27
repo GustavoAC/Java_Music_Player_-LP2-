@@ -238,11 +238,9 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 			JOptionPane.showConfirmDialog(null, "Login feito com sucesso");
 			controle.logar(0);
 		} else if (e.getSource() == uItem3) {
-			JOptionPane.showConfirmDialog(null, "Usuario Comum registrado");
-			controle.registarUsuarioComum(0);
+			controle.registarUsuarioComum();
 		} else if (e.getSource() == uItem4) {
-			JOptionPane.showConfirmDialog(null, "Usuario VIP registrado");
-			controle.registarUsuarioVIP(0);
+			controle.registarUsuarioVIP();
 		} else if (e.getSource() == b1) {
 			JFileChooser jfc = new JFileChooser();
 			jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
