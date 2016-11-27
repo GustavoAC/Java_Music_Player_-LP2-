@@ -42,13 +42,13 @@ public class Tree {
 	
 	/* Insere um Aluno na árvore, de acordo com as informações passadas por parâmetro
 	 */ 
-	public void insereUsuario(Usuario user) {
-        inserir(new No(user));
+	public boolean insereUsuario(Usuario user) {
+        return inserir(new No(user));
     }
 	
 	/* Insere um No na árvore
 	 */ 
-	public void inserir(No no) {
+	public boolean inserir(No no) {
 		if(this.root == null) {
 		   this.root = no;
 		} else {
@@ -61,8 +61,11 @@ public class Tree {
 				if (this.leftTree == null)
 					this.leftTree = new Tree();
 				this.leftTree.inserir(no);
+			} else {
+				return false;
 			}
 		}
+		return true;
 	}
 	
 	

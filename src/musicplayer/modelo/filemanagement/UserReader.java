@@ -54,19 +54,9 @@ public class UserReader {
 		}
 	}
 	
-	public boolean addUsuario(Usuario user) {
-		boolean exist = false;
-		int tam = 0;
+	public void addUsuario(Usuario user) {
 		
-		while (tam < users.size() && !exist) {
-			Usuario u = users.get(tam);
-			if (u.getId() == user.getId()) {
-				exist = true;
-			}
-			tam++;
-		}	
-		
-		if (!exist) {
+		if (!users.contains(user)) {
 			ArrayList<String> temp = new ArrayList<String>();
 			if (user instanceof UsuarioVip)
 				temp.add("VIP");
@@ -81,9 +71,7 @@ public class UserReader {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			return true;
 		}
-		return false;
 	}
 	
 	public void removeUsuario(Usuario user) {
