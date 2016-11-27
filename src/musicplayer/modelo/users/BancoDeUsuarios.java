@@ -22,15 +22,15 @@ public class BancoDeUsuarios {
 			arvoreDeUsuarios.insereUsuario(u);
 	}
 
-	public void addUsuario (int id, String nome, String senha, boolean isVip) {
+	public boolean addUsuario (int id, String nome, String senha, boolean isVip) {
 		if (isVip) 
-			arvoreDeUsuarios.insereUsuario(new UsuarioVip(id, nome, senha));
+			return arvoreDeUsuarios.insereUsuario(new UsuarioVip(id, nome, senha));
 		else
-			arvoreDeUsuarios.insereUsuario(new UsuarioComum(id, nome, senha));
+			return arvoreDeUsuarios.insereUsuario(new UsuarioComum(id, nome, senha));
 	}
 	
-	public void addUsuario (No usuario) {
-		arvoreDeUsuarios.inserir(usuario);
+	public boolean addUsuario (No usuario) {
+		return arvoreDeUsuarios.inserir(usuario);
 	}
 	
 	public boolean remove(int id) {

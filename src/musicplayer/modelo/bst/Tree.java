@@ -42,27 +42,31 @@ public class Tree {
 	
 	/* Insere um Aluno na árvore, de acordo com as informações passadas por parâmetro
 	 */ 
-	public void insereUsuario(Usuario user) {
-        inserir(new No(user));
+	public boolean insereUsuario(Usuario user) {
+		return inserir(new No(user));
+		
     }
 	
 	/* Insere um No na árvore
 	 */ 
-	public void inserir(No no) {
+	public boolean inserir(No no) {
 		if(this.root == null) {
 		   this.root = no;
+		   return true;
 		} else {
 			if (root.getUsuario().compareTo(no.getUsuario()) == -1) {
-				root.getUsuario().compareTo(no.getUsuario());
 				if (this.rightTree == null)
 					this.rightTree = new Tree();
-				this.rightTree.inserir(no);	
+				if (this.rightTree.inserir(no))
+					return true;
 			} else if (root.getUsuario().compareTo(no.getUsuario()) == 1) {
 				if (this.leftTree == null)
 					this.leftTree = new Tree();
-				this.leftTree.inserir(no);
+				if (this.leftTree.inserir(no))
+					return true;
 			}
 		}
+		return false;
 	}
 	
 	

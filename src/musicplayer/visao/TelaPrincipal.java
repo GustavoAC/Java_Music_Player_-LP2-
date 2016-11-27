@@ -248,8 +248,7 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 		} else if (e.getSource() == uItem1) {
 			controle.listarUsuarios();
 		} else if (e.getSource() == uItem2) {
-			JOptionPane.showConfirmDialog(null, "Login feito com sucesso");
-			controle.logar(0);
+			controle.showLogin();
 		} else if (e.getSource() == uItem3) {
 			controle.registarUsuarioComum();
 		} else if (e.getSource() == uItem4) {

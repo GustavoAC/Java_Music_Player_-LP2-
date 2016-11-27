@@ -127,12 +127,14 @@ public class ControlePrincipal {
 		frame.add(tsenha);
 		frame.add(b1);
 		
+		
 		b1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				UsuarioComum u = new UsuarioComum(Integer.parseInt(tid.getText()), tnome.getText(), tsenha.getText());
-				boolean r = sessionManager.getUserReader().addUsuario(u);
+				boolean r = banco.addUsuario(Integer.parseInt(tid.getText()), tnome.getText(), tsenha.getText(), false);
 				if (r) {
-					JOptionPane.showConfirmDialog(null, "Usuario Comum registrado");
+					UsuarioComum u = new UsuarioComum(Integer.parseInt(tid.getText()), tnome.getText(), tsenha.getText());
+					sessionManager.getUserReader().addUsuario(u);
+					JOptionPane.showConfirmDialog(null, "Usuario Comum registrado");	
 				} else {
 					JOptionPane.showConfirmDialog(null, "Usuario Comum não registrado");
 				}
@@ -176,10 +178,11 @@ public class ControlePrincipal {
 		
 		b1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				UsuarioVip u = new UsuarioVip(Integer.parseInt(tid.getText()), tnome.getText(), tsenha.getText());
-				boolean r = sessionManager.getUserReader().addUsuario(u);
+				boolean r = banco.addUsuario(Integer.parseInt(tid.getText()), tnome.getText(), tsenha.getText(), true);
 				if (r) {
-					JOptionPane.showConfirmDialog(null, "Usuario Vip registrado");
+					UsuarioVip u = new UsuarioVip(Integer.parseInt(tid.getText()), tnome.getText(), tsenha.getText());
+					sessionManager.getUserReader().addUsuario(u);
+					JOptionPane.showConfirmDialog(null, "Usuario Vip registrado");	
 				} else {
 					JOptionPane.showConfirmDialog(null, "Usuario Vip não registrado");
 				}
@@ -199,7 +202,10 @@ public class ControlePrincipal {
 	}
 	
 	public void voltarMusica() {
-		playerAdmin.previous();
+		Musica m = playerAdmin.previous();
+		if (m !=  null) {
+			telaPrincipal.getCurrentMusic().setText("Tocando: " + m.getFilename());
+		}
 	}
 	
 	public void play(int index) {
@@ -215,10 +221,15 @@ public class ControlePrincipal {
 	
 	public void stop() {
 		playerAdmin.stop();
+		telaPrincipal.getCurrentMusic().setText("Tocando: ");
 	}
 	
+	
 	public void passarMusica() {
-		playerAdmin.skip();
+		Musica m = playerAdmin.skip();
+		if (m !=  null) {
+			telaPrincipal.getCurrentMusic().setText("Tocando: " + m.getFilename());
+		}
 	}
 	
 	public ArrayList<Playlist> adicionarPlaylist(String name) {

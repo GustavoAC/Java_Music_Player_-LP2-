@@ -65,28 +65,31 @@ public class PlayerAdmin {
 		}
 	}
 	
-	public void playCurrentMusic() {
-		if (paused)
+	public Musica playCurrentMusic() {
+		if (paused) {
 			unpause();
-		else {
+			return null;
+		} else {
 			stop();
 			Musica mus = currPlaylist.getMusic(currentMusic);
-			if (mus == null) return;
+			if (mus == null) return null;
 	
 			player.prepare(mus);
 			player.play();
 			activelyStopped = false;
+			return mus;
 		}
 	}
 	
-	public void previous() {
+	public Musica previous() {
 		currentMusic = (currPlaylist.getSize() + currentMusic - 1) % currPlaylist.getSize();
-		playCurrentMusic();
+		return playCurrentMusic();
+
 	}
 	
-	public void skip() {
+	public Musica skip() {
 		currentMusic = (currentMusic + 1)%currPlaylist.getSize();
-		playCurrentMusic();
+		return playCurrentMusic();
 	}
 	
 	public void pause() {
