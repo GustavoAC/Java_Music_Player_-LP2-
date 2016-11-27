@@ -59,4 +59,13 @@ public class PainelMusicas extends JPanel {
 		model.addElement(name);
 	}
 
+	public void clear() {
+		this.remove(pane);
+		model = new DefaultListModel<String>();
+		list = new JList<String>(model);
+		pane = new JScrollPane(list);
+		list.addMouseListener(listener);
+		this.add(pane);
+	}
+
 }

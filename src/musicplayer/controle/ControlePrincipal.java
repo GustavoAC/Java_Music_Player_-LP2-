@@ -31,8 +31,6 @@ public class ControlePrincipal {
 	private TelaPrincipal telaPrincipal;
 	private Usuario currentUser;
 	
-	// Parte gráfica
-	
 	public ControlePrincipal() {
 		sessionManager = new SessionManager();
 		banco = new BancoDeUsuarios(sessionManager.getUserList());
@@ -86,114 +84,20 @@ public class ControlePrincipal {
 		return pl.getMusicas();
 	}
 	
-	public void salvarPlaylistAtual(int index) {
-		// TODO Auto-generated method stub
-		
-	}
-	
 	public void listarUsuarios() {
 		banco.listar();
 	}
 	
-	public void logar(int index) {
-		// TODO Auto-generated method stub
-	}
-	
-	public void registarUsuarioComum() {
-		JFrame frame = new JFrame();
-		JLabel nome = new JLabel ("Nome:  ");
-		JLabel id = new JLabel   ("ID:    ");
-		JLabel senha = new JLabel("Senha: ");
-		JTextField tnome = new JTextField();
-		JTextField tid = new JTextField();
-		JPasswordField tsenha = new JPasswordField();
-		JButton b1 = new JButton("Submeter");
-		
-		frame.setLayout(null);
-		
-		nome.setBounds(10,10,100,30);
-		tnome.setBounds(55,10,200,25);
-		id.setBounds(10,40,100,30);
-		tid.setBounds(55,40,200,25);
-		senha.setBounds(10,70,100,30);
-		tsenha.setBounds(55,70,200,25);
-		b1.setBounds(90,110,100,30);
-		
-		frame.add(nome);
-		frame.add(tnome);
-		frame.add(id);
-		frame.add(tid);
-		frame.add(senha);
-		frame.add(tsenha);
-		frame.add(b1);
-		
-		
-		b1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				boolean r = banco.addUsuario(Integer.parseInt(tid.getText()), tnome.getText(), tsenha.getText(), false);
-				if (r) {
-					UsuarioComum u = new UsuarioComum(Integer.parseInt(tid.getText()), tnome.getText(), tsenha.getText());
-					sessionManager.getUserReader().addUsuario(u);
-					JOptionPane.showConfirmDialog(null, "Usuario Comum registrado");	
-				} else {
-					JOptionPane.showConfirmDialog(null, "Usuario Comum não registrado");
-				}
+	public int registarUsuario(Usuario usuario) {		
+		if (currentUser instanceof UsuarioVip) {
+			if (banco.addUsuario(usuario)) {
+				sessionManager.getUserReader().addUsuario(usuario);
+				return 0;
+			} else {
+				return 1;
 			}
-		});
-		
-		frame.setSize(280,200);
-		frame.setResizable(false);
-		frame.setTitle("Cadastro Usuario Comum");
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setVisible(true);
-	}
-	
-	public void registarUsuarioVIP() {
-		JFrame frame = new JFrame();
-		JLabel nome = new JLabel ("Nome:  ");
-		JLabel id = new JLabel   ("ID:    ");
-		JLabel senha = new JLabel("Senha: ");
-		JTextField tnome = new JTextField();
-		JTextField tid = new JTextField();
-		JPasswordField tsenha = new JPasswordField();
-		JButton b1 = new JButton("Submeter");
-		
-		frame.setLayout(null);
-		
-		nome.setBounds(10,10,100,30);
-		tnome.setBounds(55,10,200,25);
-		id.setBounds(10,40,100,30);
-		tid.setBounds(55,40,200,25);
-		senha.setBounds(10,70,100,30);
-		tsenha.setBounds(55,70,200,25);
-		b1.setBounds(90,110,100,30);
-		
-		frame.add(nome);
-		frame.add(tnome);
-		frame.add(id);
-		frame.add(tid);
-		frame.add(senha);
-		frame.add(tsenha);
-		frame.add(b1);
-		
-		b1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				boolean r = banco.addUsuario(Integer.parseInt(tid.getText()), tnome.getText(), tsenha.getText(), true);
-				if (r) {
-					UsuarioVip u = new UsuarioVip(Integer.parseInt(tid.getText()), tnome.getText(), tsenha.getText());
-					sessionManager.getUserReader().addUsuario(u);
-					JOptionPane.showConfirmDialog(null, "Usuario Vip registrado");	
-				} else {
-					JOptionPane.showConfirmDialog(null, "Usuario Vip não registrado");
-				}
-			}
-		});
-		
-		frame.setSize(280,200);
-		frame.setResizable(false);
-		frame.setTitle("Cadastro Usuario Vip");
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		frame.setVisible(true);
+		}
+		return 2;
 	}
 	
 	public ArrayList<Musica> adicionarPasta(String path) {
@@ -246,16 +150,6 @@ public class ControlePrincipal {
 		return null;
 	}
 	
-	/* Teste do player
-	public static void main(String[] args) {
-		Usuario user = new UsuarioComum(12, "fulano", "12345");
-		Musica music = new Musica("test.mp3", 120);
-		MusicPlayer mplayer = new MusicPlayer(user, user.getCurrentPlaylist());
-		mplayer.addMusicToPlaylist(music);
-		mplayer.playCurrentMusic();
-	}
-	*/
-	
 	// Teste Visao
 	public static void main(String[] args) {
 		ControlePrincipal cp = new ControlePrincipal();
@@ -265,5 +159,9 @@ public class ControlePrincipal {
 	public void initializePanels(PainelMusicas todasAsMusicas, PainelMusicas musicasPlAtual) {
 		todasAsMusicas.list(sessionManager.getDirReader().getValidFiles());
 		musicasPlAtual.list(sessionManager.getMusicReader().getPlaylist().getMusicas());
+	}
+
+	public void clearCurrPlaylist() {
+		sessionManager.getMusicReader().clear();
 	}
 }

@@ -17,6 +17,13 @@ public class UsuarioVip extends Usuario{
 	}
 	
 	public void addPlaylist(Playlist playlist) {
+		for (Playlist pl : playlists) {
+			if (pl.getNome().equals(playlist.getNome())) {
+				playlists.remove(pl);
+				playlists.add(playlist);
+				return;
+			}
+		}
 		playlists.add(playlist);
 	}
 	

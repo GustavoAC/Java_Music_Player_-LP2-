@@ -83,6 +83,15 @@ public class MusicReader {
 	public Playlist getPlaylist() {
 		return playlist;
 	}
+
+	public void clear() {
+		playlist.getMusicas().clear();
+		try {
+			fm.write("./playlist_padrao.dat", new ArrayList<String>(), false);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	
 }

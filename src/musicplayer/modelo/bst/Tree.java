@@ -57,15 +57,13 @@ public class Tree {
 			if (root.getUsuario().compareTo(no.getUsuario()) == -1) {
 				if (this.rightTree == null)
 					this.rightTree = new Tree();
-				if (this.rightTree.inserir(no))
-					return true;
+				return this.rightTree.inserir(no);
 			} else if (root.getUsuario().compareTo(no.getUsuario()) == 1) {
 				if (this.leftTree == null)
 					this.leftTree = new Tree();
-				if (this.leftTree.inserir(no))
-					return true;
+				return this.leftTree.inserir(no);
 			}
-		}
+		}		
 		return false;
 	}
 	

@@ -29,8 +29,8 @@ public class BancoDeUsuarios {
 			return arvoreDeUsuarios.insereUsuario(new UsuarioComum(id, nome, senha));
 	}
 	
-	public boolean addUsuario (No usuario) {
-		return arvoreDeUsuarios.inserir(usuario);
+	public boolean addUsuario(Usuario usuario) {
+		return arvoreDeUsuarios.inserir(new No(usuario));
 	}
 	
 	public boolean remove(int id) {
