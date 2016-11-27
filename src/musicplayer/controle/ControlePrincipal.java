@@ -174,11 +174,12 @@ public class ControlePrincipal {
 			public void actionPerformed(ActionEvent e) {
 				boolean r = banco.addUsuario(Integer.parseInt(tid.getText()), tnome.getText(), tsenha.getText(), true);
 				if (r) {
+					int emm = Integer.parseInt("t");
 					UsuarioVip u = new UsuarioVip(Integer.parseInt(tid.getText()), tnome.getText(), tsenha.getText());
 					sessionManager.getUserReader().addUsuario(u);
-					JOptionPane.showConfirmDialog(null, "Usuario Comum registrado");	
+					JOptionPane.showConfirmDialog(null, "Usuario Vip registrado");	
 				} else {
-					JOptionPane.showConfirmDialog(null, "Usuario Comum não registrado");
+					JOptionPane.showConfirmDialog(null, "Usuario Vip não registrado");
 				}
 			}
 		});
