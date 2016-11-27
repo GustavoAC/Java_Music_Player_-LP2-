@@ -151,8 +151,8 @@ public class PatriciaTree {
 		return ret;
 	}
 	
-	public ArrayList<String> iterate(String searchBase) {
-		System.out.println("Debug. searchBase: " + searchBase);
+	private ArrayList<String> iterate(String searchBase) {
+		//System.out.println("Debug. searchBase: " + searchBase);
 		
 		ArrayList<String> ret = new ArrayList<String>();
 		if (subTrees[66] != null) {

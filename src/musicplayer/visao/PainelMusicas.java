@@ -1,26 +1,25 @@
 package musicplayer.visao;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-import javax.swing.*;
+import javax.swing.DefaultListModel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
-import musicplayer.controle.ControlePrincipal;
+import musicplayer.modelo.patriciatree.PatriciaTree;
 import musicplayer.modelo.player.Musica;
-import musicplayer.modelo.player.Playlist;
 
 @SuppressWarnings("serial")
 public class PainelMusicas extends JPanel {
 	private DefaultListModel<String> model;
 	private JList<String> list;
-	private ArrayList<Musica> musicas;
 	private JScrollPane pane;
 	private MouseListener listener;
+	private PatriciaTree tree;
+
 	
 	public PainelMusicas(int x, int y, int width, int height, MouseListener listener) {
 		super(new BorderLayout());
@@ -30,6 +29,7 @@ public class PainelMusicas extends JPanel {
 		list = new JList<String>(model);
 		pane = new JScrollPane(list);
 		this.listener = listener;
+		tree = new PatriciaTree();
 		
 		this.add(pane);
 		this.setVisible(true);
@@ -37,27 +37,33 @@ public class PainelMusicas extends JPanel {
 		list.addMouseListener(listener);	
 	}
 	
-	public int getSelectedIndex() {
-		return list.getSelectedIndex();
+	
+	public String getSelectedName() {
+		return list.getSelectedValue();
 	}
+	
 
 	public void list(ArrayList<Musica> musicas) {
-		this.musicas = musicas;
-
 		this.remove(pane);
 		model = new DefaultListModel<String>();
-		for (Musica mus : musicas)
+		tree = new PatriciaTree();
+		for (Musica mus : musicas) {
 			model.addElement(mus.getFilename());
-		
+			tree.insert(mus.getFilename());
+		}
 		list = new JList<String>(model);
 		pane = new JScrollPane(list);
+		
 		list.addMouseListener(listener);
 		this.add(pane);
 	}
 	
+	
 	public void addMusic(String name) {
 		model.addElement(name);
+		tree.insert(name);
 	}
+	
 
 	public void clear() {
 		this.remove(pane);
@@ -68,4 +74,26 @@ public class PainelMusicas extends JPanel {
 		this.add(pane);
 	}
 
+	public void update(String base) {
+		StringBuilder prefix = new StringBuilder();
+		PatriciaTree t = tree.searchForIteration(base, prefix);
+		ArrayList<String> names = null;
+		if (t != null)
+			names = t.iterate();
+		
+		this.remove(pane);
+		model = new DefaultListModel<String>();
+		if (names != null) {
+			for (String name : names)
+				model.addElement(prefix + name);
+		
+			if (model.isEmpty())
+				model.addElement(prefix.toString());
+		}
+		list = new JList<String>(model);
+		pane = new JScrollPane(list);
+		
+		list.addMouseListener(listener);
+		this.add(pane);
+	}
 }

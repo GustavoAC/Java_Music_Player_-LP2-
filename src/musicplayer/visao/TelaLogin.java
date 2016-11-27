@@ -51,6 +51,7 @@ public class TelaLogin extends JFrame {
 		this.setVisible(true);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public Usuario createUser(boolean isVip) {
 		int userId;
 		try {

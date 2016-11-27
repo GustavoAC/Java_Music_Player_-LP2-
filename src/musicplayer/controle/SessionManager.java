@@ -6,13 +6,8 @@ import musicplayer.modelo.filemanagement.DirectoryReader;
 import musicplayer.modelo.filemanagement.MusicReader;
 import musicplayer.modelo.filemanagement.PlaylistReader;
 import musicplayer.modelo.filemanagement.UserReader;
-import musicplayer.modelo.player.Musica;
 import musicplayer.modelo.player.Playlist;
 import musicplayer.modelo.users.Usuario;
-import musicplayer.modelo.users.UsuarioVip;
-import musicplayer.visao.PainelMusicas;
-import musicplayer.visao.PainelPlaylists;
-import musicplayer.visao.TelaPrincipal;
 
 public class SessionManager {
 	// diretorios.dat

@@ -45,40 +45,37 @@ public class PlayerAdmin {
 		currPlaylist.addMusic(music);
 	}
 	
-	public Musica playMusic(int index) {
-		if (paused && index == currentMusic) {
-			unpause();
-			return null;
-		} else {
-			if (paused)
-				unpause();
-			currentMusic = index;
-			paused = false;
-			stop();
-			Musica mus = currPlaylist.getMusic(currentMusic);
-			if (mus == null) return null;
-	
-			player.prepare(mus);
-			player.play();
-			activelyStopped = false;
-			return mus;
-		}
+	public Musica playMusic(String str) {
+		int index;
+		for (index = 0; index < currPlaylist.getSize(); index++)
+			if (currPlaylist.getMusicas().get(index).getFilename().equals(str))
+				break;
+		
+		if (paused)
+			pause();
+		currentMusic = index;
+		paused = false;
+		stop();
+		Musica mus = currPlaylist.getMusic(currentMusic);
+		if (mus == null) return null;
+
+		player.prepare(mus);
+		player.play();
+		activelyStopped = false;
+		return mus;
 	}
 	
 	public Musica playCurrentMusic() {
-		if (paused) {
-			unpause();
-			return null;
-		} else {
-			stop();
-			Musica mus = currPlaylist.getMusic(currentMusic);
-			if (mus == null) return null;
-	
-			player.prepare(mus);
-			player.play();
-			activelyStopped = false;
-			return mus;
-		}
+		if (paused)
+			pause();
+		stop();
+		Musica mus = currPlaylist.getMusic(currentMusic);
+		if (mus == null) return null;
+
+		player.prepare(mus);
+		player.play();
+		activelyStopped = false;
+		return mus;
 	}
 	
 	public Musica previous() {
@@ -93,13 +90,13 @@ public class PlayerAdmin {
 	}
 	
 	public void pause() {
-		player.pause();
-		paused = true;
-	}
-	
-	public void unpause() {
-		paused = false;
-		player.unpause();
+		if (paused) {
+			player.unpause();
+			paused = false;
+		} else {
+			player.pause();
+			paused = true;
+		}
 	}
 	
 	public void stop() {

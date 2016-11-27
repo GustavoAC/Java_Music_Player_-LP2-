@@ -58,13 +58,14 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 		
 		MouseListener todasListener = new MouseAdapter() {
 			public void mouseClicked(MouseEvent mouseEvent) {
+				@SuppressWarnings("unchecked")
 				JList<String> theList = (JList<String>) mouseEvent.getSource();
 				if (mouseEvent.getClickCount() == 2) {
 					int index = theList.locationToIndex(mouseEvent.getPoint());
 					if (index >= 0) {
-						String str = theList.getSelectedValue().toString();
+						String str = theList.getSelectedValue();
 						musicasPlAtual.addMusic(str);
-						controle.adicionarMusica(index);
+						controle.adicionarMusica(str);
 					}
 				}
 			}
@@ -72,11 +73,13 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 		
 		MouseListener atualListener = new MouseAdapter() {
 			public void mouseClicked(MouseEvent mouseEvent) {
+				@SuppressWarnings("unchecked")
 				JList<String> theList = (JList<String>) mouseEvent.getSource();
 				if (mouseEvent.getClickCount() == 2) {
 					int index = theList.locationToIndex(mouseEvent.getPoint());
 					if (index >= 0) {
-						controle.play(index);
+						String str = theList.getSelectedValue();
+						controle.play(str);
 					}
 				}
 			}
@@ -84,11 +87,13 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 		
 		MouseListener playlistListener = new MouseAdapter() {
 			public void mouseClicked(MouseEvent mouseEvent) {
+				@SuppressWarnings("unchecked")
 				JList<String> theList = (JList<String>) mouseEvent.getSource();
 				if (mouseEvent.getClickCount() == 2) {
 					int index = theList.locationToIndex(mouseEvent.getPoint());
 					if (index >= 0) {
-						musicasPlAtual.list(controle.tocarPlaylistSelecionada(index));
+						String name = theList.getSelectedValue();
+						musicasPlAtual.list(controle.tocarPlaylistSelecionada(name));
 						revalidate();
 						repaint();
 					}
@@ -273,7 +278,7 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 		} else if (e.getSource() == b2) {
 			controle.voltarMusica();
 		} else if (e.getSource() == b3) {
-			controle.play(musicasPlAtual.getSelectedIndex());
+			controle.play(musicasPlAtual.getSelectedName());
 		} else if (e.getSource() == b4) {
 			controle.pause();
 		} else if (e.getSource() == b5) {
@@ -320,19 +325,27 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 	
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if (e.getSource() == filtrarTodasMusicas) {
-			JOptionPane.showConfirmDialog(null, "Teste");
-			//Alguma função com filtrarTodasMusicas.getText() como argumento
-		} else if (e.getSource() == filtrarMusicas) {
-			//Alguma função com filtrarMusicas.getText() como argumento
-		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+		if (e.getSource() == filtrarTodasMusicas) {
+			todasAsMusicas.update(filtrarTodasMusicas.getText());
+			revalidate();
+			repaint();
+		} else if (e.getSource() == filtrarMusicas) {
+			musicasPlAtual.update(filtrarMusicas.getText());
+			revalidate();
+			repaint();
+		} else if (e.getSource() == filtrarPlaylists) {
+			playlists.update(filtrarPlaylists.getText());
+			revalidate();
+			repaint();
+		}
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
+		
 	}
 }

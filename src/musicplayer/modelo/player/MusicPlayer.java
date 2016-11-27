@@ -28,11 +28,13 @@ public class MusicPlayer implements Runnable {
 		}
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void pause() {
 		if (activeThread != null)
 			activeThread.suspend();
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void unpause() {
 		if (activeThread != null)
 			activeThread.resume();

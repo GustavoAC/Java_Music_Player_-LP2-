@@ -1,27 +1,14 @@
 package musicplayer.controle;
 
-import musicplayer.modelo.users.BancoDeUsuarios;
-import musicplayer.modelo.users.Usuario;
-import musicplayer.modelo.users.UsuarioComum;
-import musicplayer.modelo.users.UsuarioVip;
-import musicplayer.modelo.player.PlayerAdmin;
-import musicplayer.modelo.player.Playlist;
-import musicplayer.modelo.player.Musica;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-
-import musicplayer.controle.SessionManager;
+import musicplayer.modelo.player.Musica;
+import musicplayer.modelo.player.PlayerAdmin;
+import musicplayer.modelo.player.Playlist;
+import musicplayer.modelo.users.BancoDeUsuarios;
+import musicplayer.modelo.users.Usuario;
+import musicplayer.modelo.users.UsuarioVip;
 import musicplayer.visao.PainelMusicas;
-import musicplayer.visao.PainelPlaylists;
 import musicplayer.visao.TelaPrincipal;
 
 public class ControlePrincipal {
@@ -69,15 +56,25 @@ public class ControlePrincipal {
 		return banco;
 	}
 
-	public void adicionarMusica(int index) {
+	public void adicionarMusica(String str) {
+		int index;
+		for (index = 0; index < sessionManager.getDirReader().getValidFiles().size(); index++)
+			if (sessionManager.getDirReader().getValidFiles().get(index).getFilename().equals(str))
+				break;
+		
 		Musica mus = sessionManager.getDirReader().getValidFiles().get(index);
 		// MusicReader e PlayerAdmin compartilham a mesma playlist
 		sessionManager.getMusicReader().addMusic(mus);
 	}
 	
-	public ArrayList<Musica> tocarPlaylistSelecionada(int index) {
+	public ArrayList<Musica> tocarPlaylistSelecionada(String name) {
 		Playlist pl = new Playlist();
-		for (Musica mus : ((UsuarioVip) currentUser).getPlaylists().get(index).getMusicas())
+		ArrayList<Musica> array = null;
+		for (Playlist temp : ((UsuarioVip) currentUser).getPlaylists())
+			if (temp.getNome().equals(name))
+				array = temp.getMusicas();
+		
+		for (Musica mus : array)
 			pl.addMusic(mus);
 		sessionManager.getMusicReader().setNewPlaylist(pl);
 		playerAdmin.setCurrPlaylist(pl);
@@ -112,8 +109,8 @@ public class ControlePrincipal {
 		}
 	}
 	
-	public void play(int index) {
-		Musica m = playerAdmin.playMusic(index);
+	public void play(String str) {
+		Musica m = playerAdmin.playMusic(str);
 		if (m !=  null) {
 			telaPrincipal.getCurrentMusic().setText("Tocando: " + m.getFilename());
 		}
@@ -150,12 +147,6 @@ public class ControlePrincipal {
 		return null;
 	}
 	
-	// Teste Visao
-	public static void main(String[] args) {
-		ControlePrincipal cp = new ControlePrincipal();
-		cp.showLogin();
-	}
-
 	public void initializePanels(PainelMusicas todasAsMusicas, PainelMusicas musicasPlAtual) {
 		todasAsMusicas.list(sessionManager.getDirReader().getValidFiles());
 		musicasPlAtual.list(sessionManager.getMusicReader().getPlaylist().getMusicas());
@@ -163,5 +154,10 @@ public class ControlePrincipal {
 
 	public void clearCurrPlaylist() {
 		sessionManager.getMusicReader().clear();
+	}
+	
+	public static void main(String[] args) {
+		ControlePrincipal cp = new ControlePrincipal();
+		cp.showLogin();
 	}
 }

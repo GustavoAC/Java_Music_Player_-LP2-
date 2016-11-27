@@ -33,6 +33,8 @@ public class Playlist {
 	}
 	
 	public Musica getMusic(int index) {
+		if (index < 0 || index >= musicas.size())
+			return musicas.get(0);
 		return musicas.get(index);
 	}
 	
