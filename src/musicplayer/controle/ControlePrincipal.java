@@ -174,7 +174,6 @@ public class ControlePrincipal {
 			public void actionPerformed(ActionEvent e) {
 				boolean r = banco.addUsuario(Integer.parseInt(tid.getText()), tnome.getText(), tsenha.getText(), true);
 				if (r) {
-					int emm = Integer.parseInt("t");
 					UsuarioVip u = new UsuarioVip(Integer.parseInt(tid.getText()), tnome.getText(), tsenha.getText());
 					sessionManager.getUserReader().addUsuario(u);
 					JOptionPane.showConfirmDialog(null, "Usuario Vip registrado");	
@@ -197,7 +196,10 @@ public class ControlePrincipal {
 	}
 	
 	public void voltarMusica() {
-		playerAdmin.previous();
+		Musica m = playerAdmin.previous();
+		if (m !=  null) {
+			telaPrincipal.getCurrentMusic().setText("Tocando: " + m.getFilename());
+		}
 	}
 	
 	public void play(int index) {
@@ -213,10 +215,15 @@ public class ControlePrincipal {
 	
 	public void stop() {
 		playerAdmin.stop();
+		telaPrincipal.getCurrentMusic().setText("Tocando: ");
 	}
 	
+	
 	public void passarMusica() {
-		playerAdmin.skip();
+		Musica m = playerAdmin.skip();
+		if (m !=  null) {
+			telaPrincipal.getCurrentMusic().setText("Tocando: " + m.getFilename());
+		}
 	}
 	
 	public void adicionarPlaylist(int index) {
