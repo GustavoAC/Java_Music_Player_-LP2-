@@ -176,4 +176,13 @@ public class Tree {
 			return rightTree.busca(id);
 		}
 	}
+	
+	public void percorrerInOrdem() {
+		if (root == null)
+			return;
+		
+		if (leftTree != null) leftTree.percorrerInOrdem();
+		System.out.println(root.getUsuario().getNome());
+		if (rightTree != null) rightTree.percorrerInOrdem();
+	}
 }

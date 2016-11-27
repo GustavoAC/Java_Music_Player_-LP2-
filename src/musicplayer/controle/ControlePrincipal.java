@@ -76,7 +76,7 @@ public class ControlePrincipal {
 	}
 	
 	public void listarUsuarios(int index) {
-		// TODO Auto-generated method stub
+		banco.listar();
 	}
 	
 	public void logar(int index) {
