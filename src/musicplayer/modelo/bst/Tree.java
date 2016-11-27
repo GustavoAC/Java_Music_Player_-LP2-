@@ -182,7 +182,7 @@ public class Tree {
 			return;
 		
 		if (leftTree != null) leftTree.percorrerInOrdem();
-		System.out.println(root.getUsuario().getNome());
+		System.out.println(root.getUsuario().getNome() + " - " + root.getUsuario().getId());
 		if (rightTree != null) rightTree.percorrerInOrdem();
 	}
 }

@@ -251,11 +251,9 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 			JOptionPane.showConfirmDialog(null, "Login feito com sucesso");
 			controle.logar(0);
 		} else if (e.getSource() == uItem3) {
-			JOptionPane.showConfirmDialog(null, "Usuario Comum registrado");
-			controle.registarUsuarioComum(0);
+			controle.registarUsuarioComum();
 		} else if (e.getSource() == uItem4) {
-			JOptionPane.showConfirmDialog(null, "Usuario VIP registrado");
-			controle.registarUsuarioVIP(0);
+			controle.registarUsuarioVIP();
 		} else if (e.getSource() == b1) {
 			JFileChooser jfc = new JFileChooser();
 			jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -286,6 +284,12 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 			} else {
 				JOptionPane.showMessageDialog(null, "Somente usuários VIP podem criar playlists.");
 			}
+		}
+	}
+	
+	public void loadPlaylists(Usuario currentUser) {
+		if (currentUser instanceof UsuarioVip) {
+			playlists.list(((UsuarioVip) currentUser).getPlaylists());
 		}
 	}
 	
@@ -328,11 +332,5 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	public void loadPlaylists(Usuario currentUser) {
-		if (currentUser instanceof UsuarioVip) {
-			playlists.list(((UsuarioVip) currentUser).getPlaylists());
-		}
 	}
 }
