@@ -6,6 +6,10 @@ import java.util.ArrayList;
 
 import musicplayer.modelo.player.Musica;
 
+/*
+ * Classe que lê e escrever os diretorios do usuario 
+ * */
+
 public class DirectoryReader {
 	private FileManipulator fm;
 	private ArrayList<String> directories;

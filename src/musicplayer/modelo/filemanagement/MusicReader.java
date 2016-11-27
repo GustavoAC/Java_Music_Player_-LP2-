@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import musicplayer.modelo.player.Musica;
 import musicplayer.modelo.player.Playlist;
 
+/*
+ * Classe que lê e escreve as músicas da playlist atual do usuario
+ * */
+
 /* Estrutura do arquivo são vários conjuntos de 2 linhas
  * CAMINHO ABSOLUTO
  * NOME

@@ -8,6 +8,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+
+/*
+ * Classe para realizar leitura e escrita de arquivo simples
+ * */
 public class FileManipulator {
 	
 	public void write(String path, ArrayList<String> list, boolean append) throws IOException {

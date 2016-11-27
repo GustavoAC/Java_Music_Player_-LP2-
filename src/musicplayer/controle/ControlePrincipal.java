@@ -11,6 +11,12 @@ import musicplayer.modelo.users.UsuarioVip;
 import musicplayer.visao.PainelMusicas;
 import musicplayer.visao.TelaPrincipal;
 
+
+/*
+ * Faz a ligação entre a parte visual, as classes do modelo, e o gerenciador
+ * da sessão atual.
+ * */
+
 public class ControlePrincipal {
 	private SessionManager sessionManager;
 	private BancoDeUsuarios banco;

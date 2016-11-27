@@ -2,6 +2,10 @@ package musicplayer.modelo.patriciatree;
 
 import java.util.ArrayList;
 
+/* Implementação de um árvore Patricia de prefixos. Utilizada na filtragem e
+ * sugestao dos paineis de música e playlists
+ * */
+
 public class PatriciaTree {
 	private PatriciaNode root;
 	private PatriciaTree[] subTrees;
@@ -177,37 +181,5 @@ public class PatriciaTree {
 	public void clear() {
 		for (int i = 0; i < 65; i++)
 			subTrees[i] = null;
-	}
-	
-	public static void main(String[] args) {
-		PatriciaTree pt = new PatriciaTree();
-		pt.insert("agua");
-		pt.insert("aguado");
-		pt.insert("a");
-		pt.insert("original");
-		pt.insert("oregano");
-		pt.insert("omar");
-		pt.insert("iguana");
-		pt.insert("123");
-		pt.insert("parafuso");
-		pt.insert("parafuseta");
-		pt.insert("pi");
-		pt.insert("po");
-		
-		ArrayList<String> result = pt.iterate();
-		System.out.println("Achados: ");
-		for (String string : result) {
-			System.out.println(string);
-		}
-		
-		// O StringBuilder tem que ser passado por referencia pra ser usado na
-		// hora da impressão, classe estranha é gambiarra pra passar por parâmetro.
-		StringBuilder base = new StringBuilder();
-		PatriciaTree sub = pt.searchForIteration("o", base);
-		result = sub.iterate();
-		System.out.println("Base: " + base + " Achados: ");
-		for (String string : result) {
-			System.out.println(string);
-		}
 	}
 }

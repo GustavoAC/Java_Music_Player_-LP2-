@@ -3,6 +3,11 @@ package musicplayer.modelo.player;
 import javazoom.jl.player.advanced.PlaybackEvent;
 import javazoom.jl.player.advanced.PlaybackListener;
 
+/* Administrador do player de música 
+ * Contém a playlist atual sendo tocada, controla qual a execução atual
+ * e o que será feito quando chegar ao fim da mesma.
+ */
+
 public class PlayerAdmin {
 	private Playlist currPlaylist;
 	private MusicPlayer player;

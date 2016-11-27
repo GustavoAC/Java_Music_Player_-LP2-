@@ -10,6 +10,10 @@ import musicplayer.modelo.player.Playlist;
 import musicplayer.modelo.users.Usuario;
 import musicplayer.modelo.users.UsuarioVip;
 
+/*
+ * Classe que lê e escreve playlists criadas pelos usuarios
+ * */
+
 /* Estrutura dos arquivos
  * NOMEDOUSUARIODONO - IDDOUSUARIODONO
  * NOMEDAPLAYLIST

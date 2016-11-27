@@ -2,6 +2,9 @@ package musicplayer.modelo.player;
 
 import java.util.ArrayList;
 
+/* Implementação de uma Playlist
+ * Contém somente o nome próprio e um array de músicas*/
+
 public class Playlist {
 	private String nome; 
 	private ArrayList<Musica> musicas;

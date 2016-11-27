@@ -12,6 +12,10 @@ import javax.swing.JScrollPane;
 import musicplayer.modelo.patriciatree.PatriciaTree;
 import musicplayer.modelo.player.Playlist;
 
+/* Painel Playlists
+ * Utilizado para exibição das playlists do Usuário
+ * */
+
 @SuppressWarnings("serial")
 public class PainelPlaylists extends JPanel  {
 	private DefaultListModel<String> model;

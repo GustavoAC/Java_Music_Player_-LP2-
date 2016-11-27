@@ -12,6 +12,9 @@ import musicplayer.modelo.users.Usuario;
 import musicplayer.modelo.users.UsuarioComum;
 import musicplayer.modelo.users.UsuarioVip;
 
+/* Tela de Login
+ * Utilizada no login e na criação de usuários
+ */
 
 @SuppressWarnings("serial")
 public class TelaLogin extends JFrame {

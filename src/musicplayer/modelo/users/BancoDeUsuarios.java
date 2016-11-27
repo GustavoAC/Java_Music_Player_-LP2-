@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import musicplayer.modelo.bst.No;
 import musicplayer.modelo.bst.Tree;
 
+/* Banco de Usuarios
+ * Mantém uma árvore de busca binária com todos os usuários registrados
+ * */
+
 public class BancoDeUsuarios {
 	private Tree arvoreDeUsuarios;
 

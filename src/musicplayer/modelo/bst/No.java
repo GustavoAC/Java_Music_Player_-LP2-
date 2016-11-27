@@ -2,6 +2,9 @@ package musicplayer.modelo.bst;
 
 import musicplayer.modelo.users.Usuario;
 
+/*
+ * Nó da árvore binária de busca
+ * */
 public class No {
 	
 	private Usuario usuario;

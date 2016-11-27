@@ -1,5 +1,10 @@
 package musicplayer.modelo.player;
 
+/* 
+ * Classe que representa uma música. 
+ * Contém o caminho absoluto e o nome do arquivo da música
+ * */
+
 public class Musica {
 	private String absPath;
 	private String filename;

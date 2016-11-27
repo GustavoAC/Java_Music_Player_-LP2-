@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 import musicplayer.modelo.player.Playlist;
 
+/* Implementa o Usuario VIP
+ * Tem como diferença o array de playlists exclusivo a cada usuario
+ * */
+
 public class UsuarioVip extends Usuario{
 	private ArrayList<Playlist> playlists;
 

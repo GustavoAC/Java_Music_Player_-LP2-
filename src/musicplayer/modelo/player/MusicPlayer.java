@@ -7,6 +7,12 @@ import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.advanced.AdvancedPlayer;
 import javazoom.jl.player.advanced.PlaybackListener;
 
+/* Classe que implementa o player de arquivos mp3
+ * Somente uma camada simples de abstração acima do player
+ * disponibilizado pela biblioteca JLayer para a implementação
+ * do multi-threading
+ * */
+
 public class MusicPlayer implements Runnable {
 	private AdvancedPlayer advPlayer;
 	private Musica currMusic;

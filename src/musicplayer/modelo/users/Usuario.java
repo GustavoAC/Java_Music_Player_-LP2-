@@ -2,6 +2,10 @@ package musicplayer.modelo.users;
 
 import java.lang.Comparable;
 
+/* Classe Abstrata de Usuario.
+ * Implementa as características comuns a todo usuário.
+ * */
+
 public abstract class Usuario implements Comparable<Usuario> {
 	private int id;
 	private String nome;

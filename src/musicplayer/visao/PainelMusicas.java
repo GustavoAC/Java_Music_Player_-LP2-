@@ -12,6 +12,11 @@ import javax.swing.JScrollPane;
 import musicplayer.modelo.patriciatree.PatriciaTree;
 import musicplayer.modelo.player.Musica;
 
+/* Painel de músicas
+ * É utilizado tanto para exibir a playlist atual quanto as músicas
+ * lidas dos diretórios do usuário.
+ * */
+
 @SuppressWarnings("serial")
 public class PainelMusicas extends JPanel {
 	private DefaultListModel<String> model;

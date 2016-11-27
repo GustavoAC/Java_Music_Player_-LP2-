@@ -18,6 +18,11 @@ import musicplayer.modelo.player.Playlist;
 import musicplayer.modelo.users.Usuario;
 import musicplayer.modelo.users.UsuarioVip;
 
+/* Tela Principal
+ * Contém e controla o comportamento de todos os elementos que
+ * são exibidos na tela principal do programa
+ * */
+
 @SuppressWarnings("serial")
 public class TelaPrincipal extends JFrame implements ActionListener, KeyListener {
 	
@@ -31,7 +36,7 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 	private JLabel nome_usuario = new JLabel("");
 	private JLabel isVip = new JLabel("");
 	private JLabel currentMusicLabel = new JLabel("");
-	private JLabel nome_pl = new JLabel("Nome Playlist");
+	private JLabel nome_pl = new JLabel("Playlist Atual");
 	private JLabel todas = new JLabel("Todas as músicas");
 	private JLabel play = new JLabel("Playlists");
 	private JMenuBar menuBar = new JMenuBar();

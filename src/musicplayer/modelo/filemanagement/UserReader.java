@@ -7,6 +7,10 @@ import musicplayer.modelo.users.Usuario;
 import musicplayer.modelo.users.UsuarioVip;
 import musicplayer.modelo.users.UsuarioComum;
 
+/*
+ * Classe que lê e escreve os usuários do programa
+ * */
+
 /* Estrutura do arquivo são vários conjuntos de 4 linhas
  * VIP/Not VIP
  * NOME
