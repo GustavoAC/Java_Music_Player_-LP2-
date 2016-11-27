@@ -27,8 +27,9 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 	private PainelPlaylists playlists;
 	private TelaLogin telaLogin;
 	
-	private JLabel nome_usuario = new JLabel("Nome Usuário");
-	private JLabel isVip = new JLabel("Vip");
+	private JLabel nome_usuario = new JLabel("");
+	private JLabel isVip = new JLabel("");
+	private JLabel currentMusic = new JLabel("");
 	private JLabel nome_pl = new JLabel("Nome Playlist");
 	private JLabel todas = new JLabel("Todas as músicas");
 	private JLabel play = new JLabel("Playlists");
@@ -98,6 +99,10 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 		isVip.setBounds(25,25,250,50);
 		isVip.setFont(new Font("Dialog", Font.PLAIN, 14));
 		
+		currentMusic.setBounds(25,50,250,50);
+		currentMusic.setFont(new Font("Dialog", Font.PLAIN, 14));
+		
+		
 		nome_pl.setBounds(625,0,250,50); 
 		nome_pl.setFont(new Font("Dialog", Font.PLAIN, 18));
 		
@@ -137,6 +142,7 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 		this.add(play);
 		this.add(todas);
 		this.add(isVip);
+		this.add(currentMusic);
 		this.add(nome_usuario);
 		this.add(todasAsMusicas);
 		this.add(filtrarMusicas);
@@ -176,13 +182,23 @@ public class TelaPrincipal extends JFrame implements ActionListener, KeyListener
 		this.setResizable(false);
 		this.setTitle("Music Player");
 	}
-
-	public void setNome_usuario(JLabel nome_usuario) {
-		this.nome_usuario = nome_usuario;
+	
+	
+	
+	public JLabel getNome_usuario() {
+		return nome_usuario;
 	}
 
-	public void setIsVip(JLabel isVip) {
-		this.isVip = isVip;
+
+
+	public JLabel getIsVip() {
+		return isVip;
+	}
+
+
+
+	public JLabel getCurrentMusic() {
+		return currentMusic;
 	}
 
 	public void setMusicasPlAtual(PainelMusicas musicasPlAtual) {

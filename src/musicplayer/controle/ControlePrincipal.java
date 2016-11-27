@@ -2,6 +2,7 @@ package musicplayer.controle;
 
 import musicplayer.modelo.users.BancoDeUsuarios;
 import musicplayer.modelo.users.Usuario;
+import musicplayer.modelo.users.UsuarioVip;
 import musicplayer.modelo.player.PlayerAdmin;
 import musicplayer.modelo.player.Musica;
 
@@ -42,6 +43,12 @@ public class ControlePrincipal {
 				read.getSenha().equals(realUser.getSenha())) {
 				currentUser = realUser;
 				telaPrincipal.loadPlaylists(currentUser);
+				telaPrincipal.getNome_usuario().setText(currentUser.getNome());
+				if (currentUser instanceof UsuarioVip) {
+					telaPrincipal.getIsVip().setText("VIP");
+				} else {
+					telaPrincipal.getIsVip().setText("Normal");
+				}
 				telaPrincipal.start();
 			} else {
 				showLogin();
@@ -95,7 +102,10 @@ public class ControlePrincipal {
 	}
 	
 	public void play(int index) {
-		playerAdmin.playMusic(index);
+		Musica m = playerAdmin.playMusic(index);
+		if (m !=  null) {
+			telaPrincipal.getCurrentMusic().setText("Tocando: " + m.getFilename());
+		}
 	}
 	
 	public void pause() {

@@ -45,21 +45,23 @@ public class PlayerAdmin {
 		currPlaylist.addMusic(music);
 	}
 	
-	public void playMusic(int index) {
-		if (paused && index == currentMusic)
+	public Musica playMusic(int index) {
+		if (paused && index == currentMusic) {
 			unpause();
-		else {
+			return null;
+		} else {
 			if (paused)
 				unpause();
 			currentMusic = index;
 			paused = false;
 			stop();
 			Musica mus = currPlaylist.getMusic(currentMusic);
-			if (mus == null) return;
+			if (mus == null) return null;
 	
 			player.prepare(mus);
 			player.play();
 			activelyStopped = false;
+			return mus;
 		}
 	}
 	
