@@ -11,7 +11,6 @@ public class MusicPlayer implements Runnable {
 	private AdvancedPlayer advPlayer;
 	private Musica currMusic;
 	private Thread activeThread;
-	private boolean stopped;
 	private PlaybackListener stopListener;
 	
 	public MusicPlayer(PlaybackListener listener) {
@@ -30,10 +29,13 @@ public class MusicPlayer implements Runnable {
 	}
 	
 	public void pause() {
-		if (activeThread != null) {
+		if (activeThread != null)
 			activeThread.suspend();
-			stopped = true;
-		}
+	}
+	
+	public void unpause() {
+		if (activeThread != null)
+			activeThread.resume();
 	}
 	
 	public void stop() {
@@ -42,18 +44,9 @@ public class MusicPlayer implements Runnable {
 	}
 	
 	public void play() {
-		if (stopped) {
-			activeThread.resume();
-			stopped = true;
-		} else {
-			if (activeThread != null && activeThread.isAlive()) {
-				advPlayer.stop();
-				activeThread.interrupt();
-			}
-			activeThread = new Thread(this);
-			activeThread.setDaemon(true);
-			activeThread.start();
-		}
+		activeThread = new Thread(this);
+		activeThread.setDaemon(true);
+		activeThread.start();
 	}
 	
 	@Override

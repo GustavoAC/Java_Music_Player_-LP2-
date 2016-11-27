@@ -8,6 +8,7 @@ public class PlayerAdmin {
 	private MusicPlayer player;
 	private int currentMusic;
 	private boolean activelyStopped;
+	private boolean paused;
 	
 	// Nenhum construtor é permitido criar um novo usuario ou playlist
 	public PlayerAdmin(Playlist currPlaylist) {
@@ -44,14 +45,36 @@ public class PlayerAdmin {
 		currPlaylist.addMusic(music);
 	}
 	
+	public void playMusic(int index) {
+		if (paused && index == currentMusic)
+			unpause();
+		else {
+			if (paused)
+				unpause();
+			currentMusic = index;
+			paused = false;
+			stop();
+			Musica mus = currPlaylist.getMusic(currentMusic);
+			if (mus == null) return;
+	
+			player.prepare(mus);
+			player.play();
+			activelyStopped = false;
+		}
+	}
+	
 	public void playCurrentMusic() {
-		stop();
-		Musica mus = currPlaylist.getMusic(currentMusic);
-		if (mus == null) return;
-
-		activelyStopped = false;
-		player.prepare(mus);
-		player.play();
+		if (paused)
+			unpause();
+		else {
+			stop();
+			Musica mus = currPlaylist.getMusic(currentMusic);
+			if (mus == null) return;
+	
+			player.prepare(mus);
+			player.play();
+			activelyStopped = false;
+		}
 	}
 	
 	public void previous() {
@@ -66,10 +89,12 @@ public class PlayerAdmin {
 	
 	public void pause() {
 		player.pause();
+		paused = true;
 	}
 	
 	public void unpause() {
-		player.play();
+		paused = false;
+		player.unpause();
 	}
 	
 	public void stop() {

@@ -55,8 +55,8 @@ public class ControlePrincipal {
 
 	public void adicionarMusica(int index) {
 		Musica mus = sessionManager.getDirReader().getValidFiles().get(index);
-		playerAdmin.addMusicToPlaylist(mus);
 		sessionManager.getMusicReader().addMusic(mus);
+		// MusicReader e PlayerAdmin compartilham o mesmo Array de músicas
 	}
 	
 	public void tocarPlaylistSelecionada(int index) {
@@ -95,8 +95,7 @@ public class ControlePrincipal {
 	}
 	
 	public void play(int index) {
-		playerAdmin.setCurrentMusic(index);
-		playerAdmin.playCurrentMusic();
+		playerAdmin.playMusic(index);
 	}
 	
 	public void pause() {
